@@ -11,6 +11,10 @@ public class Task {
         this.done = true;
     }
 
+    public void unDone() {
+        this.done = false;
+    }
+
     public String getString() {
         if (done) return "[X] " + taskName;
         return "[ ] " + taskName;
