@@ -89,6 +89,7 @@ public class Qlin {
 
                 String[] sub = breakString(input.substring(9));
                 Task task = new Deadline(sub[0], sub[1]);
+                tasks[counter] = task;
                 counter++;
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + task.toString());
@@ -98,6 +99,7 @@ public class Qlin {
 
                 String[] sub = breakString(input.substring(6));
                 Task task = new Event(sub[0], sub[1], sub[2]);
+                tasks[counter] = task;
                 counter++;
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + task.toString());
