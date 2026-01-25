@@ -15,7 +15,9 @@ public class Task {
         this.done = false;
     }
 
-    public String getString() {
+    public String getName() { return this.taskName; }
+    @Override
+    public String toString() {
         if (done) return "[X] " + taskName;
         return "[ ] " + taskName;
     }
