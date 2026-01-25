@@ -28,16 +28,25 @@ public class Qlin {
             } else if (input.startsWith("mark")) {
 
                 int index = Integer.parseInt(input.substring(4).trim());
-                tasks[index].setDone();
+                tasks[index - 1].setDone();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("  " + tasks[index].toString());
 
             } else if (input.startsWith("unmark")) {
 
                 int index = Integer.parseInt(input.substring(6).trim());
-                tasks[index].unDone();
+                tasks[index - 1].unDone();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + tasks[index].toString());
+
+            } else if (input.startsWith("todo")) {
+
+                Task task = new Todo(input.substring(5));
+                tasks[counter] = task;
+                counter++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + task.toString());
+                System.out.println("Now you have " + counter + " tasks in the list.");
 
             } else {
 
