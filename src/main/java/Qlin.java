@@ -64,15 +64,15 @@ public class Qlin {
 
             } else if (input.startsWith("mark")) {
 
-                int index = Integer.parseInt(input.substring(4).trim());
-                tasks[index - 1].setDone();
+                int index = Integer.parseInt(input.substring(4).trim()) - 1;
+                tasks[index].setDone();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("  " + tasks[index].toString());
 
             } else if (input.startsWith("unmark")) {
 
-                int index = Integer.parseInt(input.substring(6).trim());
-                tasks[index - 1].unDone();
+                int index = Integer.parseInt(input.substring(6).trim()) - 1;
+                tasks[index].unDone();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + tasks[index].toString());
 
