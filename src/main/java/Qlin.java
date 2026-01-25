@@ -57,23 +57,30 @@ public class Qlin {
                     System.out.println((x + 1) + ". " + tasks[x].toString());
                 }
 
-            } else if (input.startsWith("mark ")) {
+            } else if (input.equals("mark") || input.startsWith("mark ")) {
 
-                int index = Integer.parseInt(input.substring(5).trim()) - 1;
+                if (input.equals("mark")) throw new InvalidMarkException();
+                String check = input.substring(5).trim();
+                if (check.isEmpty()) throw new InvalidMarkException();
+                int index = Integer.parseInt(check) - 1;
                 tasks[index].setDone();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("  " + tasks[index].toString());
 
-            } else if (input.startsWith("unmark ")) {
-
-                int index = Integer.parseInt(input.substring(7).trim()) - 1;
+            } else if (input.equals("unmark") || input.startsWith("unmark ")) {
+                
+                if (input.equals("unmark")) throw new InvalidUnmarkException();
+                String check = input.substring(7).trim();
+                if (check.isEmpty()) throw new InvalidUnmarkException();
+                int index = Integer.parseInt(check) - 1;
                 tasks[index].unDone();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + tasks[index].toString());
 
             } else if (input.startsWith("todo ")) {
 
-                Task task = new Todo(input.substring(5).trim());
+                String check = input.substring(5).trim();
+                Task task = new Todo(check);
                 tasks[counter] = task;
                 counter++;
                 System.out.println("Got it. I've added this task:");
@@ -82,7 +89,8 @@ public class Qlin {
 
             } else if (input.startsWith("deadline ")) {
 
-                String[] sub = breakString(input.substring(9).trim());
+                String check = input.substring(9).trim();
+                String[] sub = breakString(check);
                 Task task = new Deadline(sub[0], sub[1]);
                 tasks[counter] = task;
                 counter++;
@@ -92,7 +100,8 @@ public class Qlin {
 
             } else if (input.startsWith("event ")) {
 
-                String[] sub = breakString(input.substring(6).trim());
+                String check = input.substring(6).trim();
+                String[] sub = breakString(check);
                 Task task = new Event(sub[0], sub[1], sub[2]);
                 tasks[counter] = task;
                 counter++;
@@ -112,17 +121,27 @@ public class Qlin {
     }
 
     public static void main(String[] args) {
-        
+
         System.out.println("Hello!, I'm Qlin.\n" + "What can I do for you?\n");
         while (!terminate) {
 
             try {
                 responder();
-            } catch (InvalidInputException e) {
-                System.out.println("Sry, your input is invalid");
-            } catch (QlinException e) {
-                System.out.println("Sry, something's wrong.");
+            } catch (InvalidMarkException e) {
+                e.echo();
             }
+
+            catch (InvalidTodoException e) {
+                e.echo();
+            } catch (InvalidUnmarkException e) {
+                e.echo();
+            } catch (InvalidDeadlineException e) {
+                e.echo();
+            } catch (InvalidEventException e ) {
+                e.echo();
+            } catch (InvalidInputException e) {
+                e.echo();
+            } catch (Exception e) {}
 
         }
         return;
