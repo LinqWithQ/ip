@@ -3,6 +3,10 @@ import java.util.Scanner;
 
 public class Qlin {
 
+    static boolean terminate = false;
+    static Task[] tasks = new Task[101];
+    static Integer counter = 0;
+
     // string breaker
     private static String[] breakString(String s) {
 
@@ -12,18 +16,22 @@ public class Qlin {
         HashMap<Integer, Integer> hashmap = new HashMap<>();
         int count = 0;
         for (int i = 0; i < s.length(); i++) {
+
             if (s.charAt(i) == '/') {
                 hashmap.put(count, i);
                 count++;
             }
+
         }
         String[] result = new String[count];
         for (int i = 0; i < count - 1; i++) {
+
             int indexS = hashmap.get(i);
             int indexE = hashmap.get(i + 1);
             String sub = s.substring(indexS + 1, indexE).trim();
             result[i] = sub;
-            }
+
+        }
         int indexS = hashmap.get(count - 1);
         String sub = s.substring(indexS + 1).trim();
         result[count - 1] = sub;
@@ -31,12 +39,9 @@ public class Qlin {
 
     }
 
-    private static void responder() throws Exception{
-        Task[] tasks = new Task[101];
-        int counter = 0;
-        Scanner sc = new Scanner(System.in);
-        boolean terminate = false;
+    private static void responder() throws QlinException{
 
+        Scanner sc = new Scanner(System.in);
         while (!terminate) {
             String input = sc.nextLine();
 
@@ -97,23 +102,30 @@ public class Qlin {
 
             } else {
 
-                System.out.println("added: " + input);
-                tasks[counter] = new Task(input);
-                counter++;
+                throw new InvalidInputException();
 
             }
+
         }
+        return;
+
     }
 
     public static void main(String[] args) {
-        String greeting = "Hello!, I'm Qlin.\n" + "What can I do for you?\n";
-        System.out.println(greeting);
-        try {
-            responder();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            return;
+        
+        System.out.println("Hello!, I'm Qlin.\n" + "What can I do for you?\n");
+        while (!terminate) {
+
+            try {
+                responder();
+            } catch (InvalidInputException e) {
+                System.out.println("Sry, your input is invalid");
+            } catch (QlinException e) {
+                System.out.println("Sry, something's wrong.");
+            }
+
         }
+        return;
+
     }
 }
