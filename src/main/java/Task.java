@@ -16,6 +16,7 @@ public class Task {
     }
 
     public String getName() { return this.taskName; }
+
     @Override
     public String toString() {
         if (done) return "[X] " + taskName;
