@@ -39,14 +39,7 @@ public class Qlin {
         String greeting = "Hello!, I'm Qlin.\n" + "What can I do for you?\n";
         System.out.println(greeting);
         boolean terminate = false;
-
-        //test site
-        /*
-        String[] test = breakString("/12  0/41/  14 4   //6");
-        for (String s: test) System.out.println(s);
-        */
-
-
+        
         while (!terminate) {
             String input = sc.nextLine();
 
