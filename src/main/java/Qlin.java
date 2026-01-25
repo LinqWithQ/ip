@@ -5,6 +5,10 @@ public class Qlin {
 
     // string breaker
     private static String[] breakString(String s) {
+
+        // special adjustment
+        s = "/" + s;
+
         HashMap<Integer, Integer> hashmap = new HashMap<>();
         int count = 0;
         for (int i = 0; i < s.length(); i++) {
@@ -17,11 +21,11 @@ public class Qlin {
         for (int i = 0; i < count - 1; i++) {
             int indexS = hashmap.get(i);
             int indexE = hashmap.get(i + 1);
-            String sub = s.substring(indexS + 1, indexE);
+            String sub = s.substring(indexS + 1, indexE).trim();
             result[i] = sub;
             }
         int indexS = hashmap.get(count - 1);
-        String sub = s.substring(indexS + 1);
+        String sub = s.substring(indexS + 1).trim();
         result[count - 1] = sub;
         return result;
 
@@ -38,7 +42,7 @@ public class Qlin {
 
         //test site
         /*
-        String[] test = breakString("/12  /11   9  /im");
+        String[] test = breakString("/12  0/41/  14 4   //6");
         for (String s: test) System.out.println(s);
         */
 
@@ -83,11 +87,21 @@ public class Qlin {
 
             } else if (input.startsWith("deadline")) {
 
-                return;
+                String[] sub = breakString(input.substring(9));
+                Task task = new Deadline(sub[0], sub[1]);
+                counter++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + task.toString());
+                System.out.println("Now you have " + counter + " tasks in the list.");
 
             } else if (input.startsWith("event")) {
 
-                return;
+                String[] sub = breakString(input.substring(6));
+                Task task = new Event(sub[0], sub[1], sub[2]);
+                counter++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + task.toString());
+                System.out.println("Now you have " + counter + " tasks in the list.");
 
             } else {
 
