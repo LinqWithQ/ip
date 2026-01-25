@@ -1,6 +1,32 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Qlin {
+
+    // string breaker
+    private static String[] breakString(String s) {
+        HashMap<Integer, Integer> hashmap = new HashMap<>();
+        int count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '/') {
+                hashmap.put(count, i);
+                count++;
+            }
+        }
+        String[] result = new String[count];
+        for (int i = 0; i < count - 1; i++) {
+            int indexS = hashmap.get(i);
+            int indexE = hashmap.get(i + 1);
+            String sub = s.substring(indexS + 1, indexE);
+            result[i] = sub;
+            }
+        int indexS = hashmap.get(count - 1);
+        String sub = s.substring(indexS + 1);
+        result[count - 1] = sub;
+        return result;
+
+    }
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -9,6 +35,13 @@ public class Qlin {
         String greeting = "Hello!, I'm Qlin.\n" + "What can I do for you?\n";
         System.out.println(greeting);
         boolean terminate = false;
+
+        //test site
+        /*
+        String[] test = breakString("/12  /11   9  /im");
+        for (String s: test) System.out.println(s);
+        */
+
 
         while (!terminate) {
             String input = sc.nextLine();
@@ -47,6 +80,14 @@ public class Qlin {
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + task.toString());
                 System.out.println("Now you have " + counter + " tasks in the list.");
+
+            } else if (input.startsWith("deadline")) {
+
+                return;
+
+            } else if (input.startsWith("event")) {
+
+                return;
 
             } else {
 
