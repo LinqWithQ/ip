@@ -31,15 +31,12 @@ public class Qlin {
 
     }
 
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
+    private static void responder() throws Exception{
         Task[] tasks = new Task[101];
         int counter = 0;
-        String greeting = "Hello!, I'm Qlin.\n" + "What can I do for you?\n";
-        System.out.println(greeting);
+        Scanner sc = new Scanner(System.in);
         boolean terminate = false;
-        
+
         while (!terminate) {
             String input = sc.nextLine();
 
@@ -55,32 +52,32 @@ public class Qlin {
                     System.out.println((x + 1) + ". " + tasks[x].toString());
                 }
 
-            } else if (input.startsWith("mark")) {
+            } else if (input.startsWith("mark ")) {
 
-                int index = Integer.parseInt(input.substring(4).trim()) - 1;
+                int index = Integer.parseInt(input.substring(5).trim()) - 1;
                 tasks[index].setDone();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("  " + tasks[index].toString());
 
-            } else if (input.startsWith("unmark")) {
+            } else if (input.startsWith("unmark ")) {
 
-                int index = Integer.parseInt(input.substring(6).trim()) - 1;
+                int index = Integer.parseInt(input.substring(7).trim()) - 1;
                 tasks[index].unDone();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + tasks[index].toString());
 
-            } else if (input.startsWith("todo")) {
+            } else if (input.startsWith("todo ")) {
 
-                Task task = new Todo(input.substring(5));
+                Task task = new Todo(input.substring(5).trim());
                 tasks[counter] = task;
                 counter++;
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + task.toString());
                 System.out.println("Now you have " + counter + " tasks in the list.");
 
-            } else if (input.startsWith("deadline")) {
+            } else if (input.startsWith("deadline ")) {
 
-                String[] sub = breakString(input.substring(9));
+                String[] sub = breakString(input.substring(9).trim());
                 Task task = new Deadline(sub[0], sub[1]);
                 tasks[counter] = task;
                 counter++;
@@ -88,9 +85,9 @@ public class Qlin {
                 System.out.println("  " + task.toString());
                 System.out.println("Now you have " + counter + " tasks in the list.");
 
-            } else if (input.startsWith("event")) {
+            } else if (input.startsWith("event ")) {
 
-                String[] sub = breakString(input.substring(6));
+                String[] sub = breakString(input.substring(6).trim());
                 Task task = new Event(sub[0], sub[1], sub[2]);
                 tasks[counter] = task;
                 counter++;
@@ -105,6 +102,18 @@ public class Qlin {
                 counter++;
 
             }
+        }
+    }
+
+    public static void main(String[] args) {
+        String greeting = "Hello!, I'm Qlin.\n" + "What can I do for you?\n";
+        System.out.println(greeting);
+        try {
+            responder();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            return;
         }
     }
 }
