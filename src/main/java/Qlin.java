@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class Qlin {
 
     static boolean terminate = false;
-    //static Task[] tasks = new Task[101];
     static List<Task> tasks = new ArrayList<>();
     static Integer counter = 0;
 
@@ -140,6 +139,20 @@ public class Qlin {
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + task.toString());
                 System.out.println("Now you have " + counter + " tasks in the list.");
+
+            } else if (input.equals("delete") || input.startsWith("delete ")) {
+
+                if (input.equals("delete")) throw new InvalidDeleteException();
+                String check = input.substring(7).trim();
+                if (check.isEmpty()) throw new InvalidDeleteException();
+                if (counter == 0) throw new NoElementException();
+                int index = Integer.parseInt(check) - 1;
+                if (index >= counter) throw new InvalidIndexException(counter);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println("  " + tasks.get(index).toString());
+                counter--;
+                System.out.println("Now you have " + counter + " tasks in the list.");
+                tasks.remove(index);
 
             } else {
 
