@@ -80,7 +80,9 @@ public class Qlin {
                 if (input.equals("mark")) throw new InvalidMarkException();
                 String check = input.substring(5).trim();
                 if (check.isEmpty()) throw new InvalidMarkException();
+                if (counter == 0) throw new NoElementException();
                 int index = Integer.parseInt(check) - 1;
+                if (index >= counter) throw new InvalidIndexException(counter);
                 tasks[index].setDone();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println("  " + tasks[index].toString());
@@ -90,7 +92,9 @@ public class Qlin {
                 if (input.equals("unmark")) throw new InvalidUnmarkException();
                 String check = input.substring(7).trim();
                 if (check.isEmpty()) throw new InvalidUnmarkException();
+                if (counter == 0) throw new NoElementException();
                 int index = Integer.parseInt(check) - 1;
+                if (index >= counter) throw new InvalidIndexException(counter);
                 tasks[index].unDone();
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println("  " + tasks[index].toString());
@@ -152,13 +156,19 @@ public class Qlin {
 
             try {
                 responder();
-            } catch (InvalidMarkException e) {
+            }
+
+            catch (InvalidIndexException e) {
+                e.echo();
+            } catch (NoElementException e) {
                 e.echo();
             }
 
-            catch (InvalidTodoException e) {
+            catch (InvalidMarkException e) {
                 e.echo();
             } catch (InvalidUnmarkException e) {
+                e.echo();
+            } catch (InvalidTodoException e) {
                 e.echo();
             } catch (InvalidDeadlineException e) {
                 e.echo();
