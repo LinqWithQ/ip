@@ -156,23 +156,12 @@ public class Qlin {
 
             try {
                 responder();
-            } catch (InvalidIndexException e) {
+            } catch (QlinException e) {
                 e.echo();
-            } catch (NoElementException e) {
-                e.echo();
-            } catch (InvalidMarkException e) {
-                e.echo();
-            } catch (InvalidUnmarkException e) {
-                e.echo();
-            } catch (InvalidTodoException e) {
-                e.echo();
-            } catch (InvalidDeadlineException e) {
-                e.echo();
-            } catch (InvalidEventException e ) {
-                e.echo();
-            } catch (InvalidInputException e) {
-                e.echo();
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return;
+            }
 
         }
         return;
