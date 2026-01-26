@@ -1,10 +1,13 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class Qlin {
 
     static boolean terminate = false;
-    static Task[] tasks = new Task[101];
+    //static Task[] tasks = new Task[101];
+    static List<Task> tasks = new ArrayList<>();
     static Integer counter = 0;
 
     // string breaker
@@ -72,7 +75,7 @@ public class Qlin {
 
                 System.out.println("Here are the tasks in your list:");
                 for (int x = 0; x < counter; x++) {
-                    System.out.println((x + 1) + ". " + tasks[x].toString());
+                    System.out.println((x + 1) + ". " + tasks.get(x).toString());
                 }
 
             } else if (input.equals("mark") || input.startsWith("mark ")) {
@@ -83,9 +86,9 @@ public class Qlin {
                 if (counter == 0) throw new NoElementException();
                 int index = Integer.parseInt(check) - 1;
                 if (index >= counter) throw new InvalidIndexException(counter);
-                tasks[index].setDone();
+                tasks.get(index).setDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  " + tasks[index].toString());
+                System.out.println("  " + tasks.get(index).toString());
 
             } else if (input.equals("unmark") || input.startsWith("unmark ")) {
 
@@ -95,9 +98,9 @@ public class Qlin {
                 if (counter == 0) throw new NoElementException();
                 int index = Integer.parseInt(check) - 1;
                 if (index >= counter) throw new InvalidIndexException(counter);
-                tasks[index].unDone();
+                tasks.get(index).unDone();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("  " + tasks[index].toString());
+                System.out.println("  " + tasks.get(index).toString());
 
             } else if (input.equals("todo") || input.startsWith("todo ")) {
 
@@ -105,7 +108,7 @@ public class Qlin {
                 String check = input.substring(5).trim();
                 if (check.isEmpty()) throw new InvalidTodoException();
                 Task task = new Todo(check);
-                tasks[counter] = task;
+                tasks.add(task);
                 counter++;
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + task.toString());
@@ -119,7 +122,7 @@ public class Qlin {
                 if (sub.length == 0 || sub.length > 2) throw new InvalidDeadlineException();
                 if (sub.length == 1) throw new InvalidDeadlineTimeException();
                 Task task = new Deadline(sub[0], sub[1]);
-                tasks[counter] = task;
+                tasks.add(task);
                 counter++;
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + task.toString());
@@ -132,7 +135,7 @@ public class Qlin {
                 String[] sub = breakString(check);
                 if (sub.length != 3) throw new InvalidEventException();
                 Task task = new Event(sub[0], sub[1], sub[2]);
-                tasks[counter] = task;
+                tasks.add(task);
                 counter++;
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + task.toString());
