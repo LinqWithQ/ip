@@ -156,15 +156,11 @@ public class Qlin {
 
             try {
                 responder();
-            }
-
-            catch (InvalidIndexException e) {
+            } catch (InvalidIndexException e) {
                 e.echo();
             } catch (NoElementException e) {
                 e.echo();
-            }
-
-            catch (InvalidMarkException e) {
+            } catch (InvalidMarkException e) {
                 e.echo();
             } catch (InvalidUnmarkException e) {
                 e.echo();
@@ -176,7 +172,7 @@ public class Qlin {
                 e.echo();
             } catch (InvalidInputException e) {
                 e.echo();
-            } catch (Exception e) {}
+            } catch (Exception ignored) {}
 
         }
         return;
