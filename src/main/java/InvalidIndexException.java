@@ -9,6 +9,6 @@ public class InvalidIndexException extends QlinException{
 
     @Override
     public void echo() {
-        System.out.println("Sry, pls try again with a valid index within 0 and " + highIndex +".");
+        System.out.println("Sry, pls try again with a valid index ranged [0, " + highIndex +"].");
     }
 }
