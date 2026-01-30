@@ -5,13 +5,15 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Scanner;
 
 public class Qlin {
 
     static boolean isTerminate = false;
+    static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        System.out.println("Hello!, I'm Qlin.\n" + "What can I do for you?\n");
+        System.out.println("Hello! I'm Qlin.\n" + "What can I do for you?");
         if (!Files.exists(Path.of("data/qlin.txt"))) {
             Path path = Paths.get("data/qlin.txt");
             try {

@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Responder {
 
     public static void respond() throws QlinException {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = Qlin.sc;
         String input = sc.nextLine();
         if (input.equals("bye")) {
             System.out.println("Goodbye, hope to not see you again!");
