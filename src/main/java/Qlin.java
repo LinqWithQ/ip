@@ -1,11 +1,15 @@
 import java.io.*;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Qlin {
 
@@ -124,7 +128,16 @@ public class Qlin {
                 String[] sub = breakString(check);
                 if (sub.length == 0 || sub.length > 2) throw new InvalidDeadlineException();
                 if (sub.length == 1) throw new InvalidDeadlineTimeException();
-                Task task = new Deadline(sub[0], sub[1]);
+                LocalDate deadline = null;
+                try {
+                    deadline = LocalDate.parse(sub[1]);
+                } catch (DateTimeParseException e) {
+                    throw new QlinException("Sry, the date format is invalid, pls follow this format: \"yyyy-mm-dd\"");
+                }
+                Task task = new Deadline(sub[0], deadline);
+
+
+
                 tasks.add(task);
                 counter++;
                 System.out.println("Got it. I've added this task:");
@@ -189,7 +202,7 @@ public class Qlin {
             history = new Todo(strings[1]);
             if (strings[2].equals("1")) history.setDone();
         } else if (strings[0].equals("deadline")) {
-            history = new Deadline(strings[1], strings[2]);
+            history = new Deadline(strings[1], LocalDate.parse(strings[2]));
             if (strings[3].equals("1")) history.setDone();
         } else {
             history = new Event(strings[1], strings[2], strings[3]);
@@ -201,8 +214,6 @@ public class Qlin {
 
     public static void store() {
         Path path = Paths.get("data/qlin.txt");
-
-        // The try-with-resources block ensures the writer closes automatically
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             for (Task t: tasks) {
                 String storeString = t.toStoreFormat();
@@ -215,7 +226,6 @@ public class Qlin {
     }
 
     public static void main(String[] args) {
-
         System.out.println("Hello!, I'm Qlin.\n" + "What can I do for you?\n");
         if (!Files.exists(Path.of("data/qlin.txt"))) {
             Path path = Paths.get("data/qlin.txt");
