@@ -1,7 +1,11 @@
+import java.io.*;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Qlin {
 
@@ -165,11 +169,69 @@ public class Qlin {
 
     }
 
+    public static void initialize() throws IOException {
+        Scanner sc = new Scanner(new File("data/qlin.txt"));
+
+        while (sc.hasNextLine()) {
+            buildArrayList(sc.nextLine());
+        }
+
+        sc.close();
+    }
+
+    public static void buildArrayList(String s) {
+        String[] strings = breakString(s);
+        Task history;
+        if (strings[0].equals("task")) {
+            history = new Task(strings[1]);
+            if (strings[2].equals("1")) history.setDone();
+        } else if (strings[0].equals("todo")) {
+            history = new Todo(strings[1]);
+            if (strings[2].equals("1")) history.setDone();
+        } else if (strings[0].equals("deadline")) {
+            history = new Deadline(strings[1], strings[2]);
+            if (strings[3].equals("1")) history.setDone();
+        } else {
+            history = new Event(strings[1], strings[2], strings[3]);
+            if (strings[4].equals("1")) history.setDone();
+        }
+        tasks.add(history);
+        counter++;
+    }
+
+    public static void store() {
+        Path path = Paths.get("data/qlin.txt");
+
+        // The try-with-resources block ensures the writer closes automatically
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            for (Task t: tasks) {
+                String storeString = t.toStoreFormat();
+                writer.write(storeString);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
 
         System.out.println("Hello!, I'm Qlin.\n" + "What can I do for you?\n");
+        if (!Files.exists(Path.of("data/qlin.txt"))) {
+            Path path = Paths.get("data/qlin.txt");
+            try {
+                Files.createFile(path);
+            } catch (IOException e) {
+                System.err.println("Could not create file: " + e.getMessage());
+            }
+        } else {
+            try {
+                initialize();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
         while (!terminate) {
-
             try {
                 responder();
             } catch (QlinException e) {
@@ -178,9 +240,7 @@ public class Qlin {
                 System.out.println(e.getMessage());
                 return;
             }
-
         }
-        return;
-
+        store();
     }
 }
