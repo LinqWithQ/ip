@@ -1,3 +1,5 @@
+package exceptions;
+
 public class InvalidTodoException extends QlinException{
     @Override
     public void echo() {

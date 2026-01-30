@@ -1,3 +1,5 @@
+package exceptions;
+
 public class QlinException extends Exception{
     String message;
 

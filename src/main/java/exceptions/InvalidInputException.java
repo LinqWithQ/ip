@@ -1,3 +1,5 @@
+package exceptions;
+
 public class InvalidInputException extends QlinException{
     @Override
     public void echo() {

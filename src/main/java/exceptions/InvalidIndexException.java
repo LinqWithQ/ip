@@ -1,3 +1,5 @@
+package exceptions;
+
 public class InvalidIndexException extends QlinException{
 
     int highIndex;

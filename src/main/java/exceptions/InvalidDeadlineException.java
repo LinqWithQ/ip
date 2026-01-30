@@ -1,3 +1,5 @@
+package exceptions;
+
 public class InvalidDeadlineException extends QlinException{
     @Override
     public void echo() {

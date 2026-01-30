@@ -1,3 +1,5 @@
+package exceptions;
+
 public class NoElementException extends QlinException{
     @Override
     public void echo() {

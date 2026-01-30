@@ -1,3 +1,5 @@
+package exceptions;
+
 public class InvalidEventException extends QlinException{
     @Override
     public void echo() {

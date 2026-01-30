@@ -1,3 +1,5 @@
+package exceptions;
+
 public class InvalidDeadlineTimeException extends InvalidDeadlineException{
     @Override
     public void echo() {

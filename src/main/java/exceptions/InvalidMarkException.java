@@ -1,3 +1,5 @@
+package exceptions;
+
 public class InvalidMarkException extends QlinException{
     @Override
     public void echo() {
