@@ -6,29 +6,19 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Responder {
-    public Responder() {
-
-    }
 
     public static void respond() throws QlinException {
-
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
-
         if (input.equals("bye")) {
-
             System.out.println("Goodbye, hope to not see you again!");
             Qlin.isTerminate = true;
-
         } else if (input.equals("list")) {
-
             System.out.println("Here are the tasks in your list:");
             for (int x = 0; x < TrackList.getLen(); x++) {
                 System.out.println((x + 1) + ". " + TrackList.get(x).toString());
             }
-
         } else if (input.equals("mark") || input.startsWith("mark ")) {
-
             if (input.equals("mark")) throw new InvalidMarkException();
             String check = input.substring(5).trim();
             if (check.isEmpty()) throw new InvalidMarkException();
@@ -38,9 +28,7 @@ public class Responder {
             TrackList.get(index).setDone();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("  " + TrackList.get(index).toString());
-
         } else if (input.equals("unmark") || input.startsWith("unmark ")) {
-
             if (input.equals("unmark")) throw new InvalidUnmarkException();
             String check = input.substring(7).trim();
             if (check.isEmpty()) throw new InvalidUnmarkException();
@@ -50,9 +38,7 @@ public class Responder {
             TrackList.get(index).unDone();
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("  " + TrackList.get(index).toString());
-
         } else if (input.equals("todo") || input.startsWith("todo ")) {
-
             if (input.equals("todo")) throw new InvalidTodoException();
             String check = input.substring(5).trim();
             if (check.isEmpty()) throw new InvalidTodoException();
@@ -61,9 +47,7 @@ public class Responder {
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + task.toString());
             System.out.println("Now you have " + TrackList.getLen() + " tasks in the list.");
-
         } else if (input.equals("deadline") || input.startsWith("deadline ")) {
-
             if (input.equals("deadline")) throw new InvalidDeadlineException();
             String check = input.substring(9).trim();
             String[] sub = Parser.breakString(check);
@@ -80,9 +64,7 @@ public class Responder {
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + task.toString());
             System.out.println("Now you have " + TrackList.getLen() + " tasks in the list.");
-
         } else if (input.equals("event") || input.startsWith("event ")) {
-
             if (input.equals("event")) throw new InvalidEventException();
             String check = input.substring(6).trim();
             String[] sub = Parser.breakString(check);
@@ -92,7 +74,6 @@ public class Responder {
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + task.toString());
             System.out.println("Now you have " + TrackList.getLen() + " tasks in the list.");
-
         } else if (input.equals("delete") || input.startsWith("delete ")) {
             if (input.equals("delete")) throw new InvalidDeleteException();
             //special command
@@ -110,11 +91,9 @@ public class Responder {
             System.out.println("  " + TrackList.get(index).toString());
             System.out.println("Now you have " + TrackList.getLen() + " tasks in the list.");
             TrackList.delete(index);
-
         } else {
             throw new InvalidInputException();
         }
         return;
-
     }
 }

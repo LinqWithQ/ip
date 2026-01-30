@@ -20,5 +20,5 @@ public class TrackList {
     public static List<Task> getList() {
         return tasks;
     }
-    public static void deleteAll() {tasks = new ArrayList<>();}
+    public static void deleteAll() {tasks = new ArrayList<>(); }
 }

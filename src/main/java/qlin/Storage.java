@@ -13,11 +13,9 @@ public class Storage {
 
     public static void initialize() throws IOException {
         Scanner sc = new Scanner(new File("data/qlin.txt"));
-
         while (sc.hasNextLine()) {
             buildArrayList(sc.nextLine());
         }
-
         sc.close();
     }
 
