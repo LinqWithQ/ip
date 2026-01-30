@@ -1,25 +1,30 @@
 public class Task {
-    private boolean done;
-    private final String taskName;
+    protected boolean isDone;
+    protected final String taskName;
 
     public Task(String n) {
-        this.done = false;
+        this.isDone = false;
         this.taskName = n;
     }
 
     public void setDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unDone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public String getName() { return this.taskName; }
 
     @Override
     public String toString() {
-        if (done) return "[X] " + taskName;
+        if (isDone) return "[X] " + taskName;
         return "[ ] " + taskName;
+    }
+
+    public String toStoreFormat() {
+        if (this.isDone) return "task /" + this.taskName + " /1";
+        return "task /" + this.taskName + " /0";
     }
 }

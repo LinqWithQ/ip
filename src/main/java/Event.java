@@ -13,4 +13,10 @@ public class Event extends Task{
     public String toString() {
         return "[E]" + super.toString() + " (from: " + beginTime  + " to: " + endTime + ")";
     }
+
+    @Override
+    public String toStoreFormat() {
+        if (this.isDone) return "event /" + this.taskName + " /" + this.beginTime + " /" + this.endTime + " /1";
+        return "event /" + this.taskName + " /" + this.beginTime + " /" + this.endTime + " /0";
+    }
 }

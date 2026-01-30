@@ -11,4 +11,10 @@ public class Deadline extends Task{
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.deadlineDate + ")";
     }
+
+    @Override
+    public String toStoreFormat() {
+        if (this.isDone) return "deadline /" + this.taskName + " /" + this.deadlineDate + " /1";
+        return "deadline /" + this.taskName + " /" + this.deadlineDate + " /0";
+    }
 }
