@@ -9,11 +9,13 @@ import java.util.Scanner;
 
 public class Qlin {
 
-    static boolean isTerminate = false;
-    static Scanner sc = new Scanner(System.in);
+    static boolean isTerminate;
+    static Scanner sc;
 
     public static void main(String[] args) {
         System.out.println("Hello! I'm Qlin.\n" + "What can I do for you?");
+        sc = new Scanner(System.in);
+        isTerminate = false;
         if (!Files.exists(Path.of("data/qlin.txt"))) {
             Path path = Paths.get("data/qlin.txt");
             try {
