@@ -24,7 +24,7 @@ public class Task {
     }
 
     public String toStoreFormat() {
-        if (isDone) return "task /" + taskName + " /1";
-        return "task /" + taskName + " /0";
+        if (this.isDone) return "task /" + this.taskName + " /1";
+        return "task /" + this.taskName + " /0";
     }
 }

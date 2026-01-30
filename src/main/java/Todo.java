@@ -10,7 +10,7 @@ public class Todo extends Task{
 
     @Override
     public String toStoreFormat() {
-        if (isDone) return "todo /" + taskName + " /1";
-        return "todo /" + taskName + " /0";
+        if (this.isDone) return "todo /" + this.taskName + " /1";
+        return "todo /" + this.taskName + " /0";
     }
 }
