@@ -1,229 +1,11 @@
-import java.io.*;
+import java.io.IOException;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 public class Qlin {
 
-    static boolean terminate = false;
-    static List<Task> tasks = new ArrayList<>();
-    static Integer counter = 0;
-
-    // string breaker
-    private static String[] breakString(String s) {
-
-        // special adjustment
-        s = "/" + s;
-
-        HashMap<Integer, Integer> hashmap = new HashMap<>();
-        int count = 0;
-        for (int i = 0; i < s.length(); i++) {
-
-            if (s.charAt(i) == '/') {
-                hashmap.put(count, i);
-                count++;
-            }
-
-        }
-        String[] result = new String[count];
-        for (int i = 0; i < count - 1; i++) {
-
-            int indexS = hashmap.get(i);
-            int indexE = hashmap.get(i + 1);
-            String sub = s.substring(indexS + 1, indexE).trim();
-            result[i] = sub;
-
-        }
-        int indexS = hashmap.get(count - 1);
-        String sub = s.substring(indexS + 1).trim();
-        result[count - 1] = sub;
-
-        // remove any empty string
-        int empty = 0;
-        for (String t: result) {
-            if (t.isEmpty()) empty += 1;
-        }
-        if (empty == 0) return result;
-        int temp = count - empty;
-        String[] a = new String[temp];
-        temp = 0;
-        for (String t: result) {
-            if (!t.isEmpty()) {
-                a[temp] = t;
-                temp++;
-            }
-
-        }
-
-        return a;
-
-    }
-
-    private static void responder() throws QlinException{
-
-        Scanner sc = new Scanner(System.in);
-        while (!terminate) {
-            String input = sc.nextLine();
-
-            if (input.equals("bye")) {
-
-                System.out.println("Goodbye, hope to not see you again!");
-                terminate = true;
-
-            } else if (input.equals("list")) {
-
-                System.out.println("Here are the tasks in your list:");
-                for (int x = 0; x < counter; x++) {
-                    System.out.println((x + 1) + ". " + tasks.get(x).toString());
-                }
-
-            } else if (input.equals("mark") || input.startsWith("mark ")) {
-
-                if (input.equals("mark")) throw new InvalidMarkException();
-                String check = input.substring(5).trim();
-                if (check.isEmpty()) throw new InvalidMarkException();
-                if (counter == 0) throw new NoElementException();
-                int index = Integer.parseInt(check) - 1;
-                if (index >= counter) throw new InvalidIndexException(counter);
-                tasks.get(index).setDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  " + tasks.get(index).toString());
-
-            } else if (input.equals("unmark") || input.startsWith("unmark ")) {
-
-                if (input.equals("unmark")) throw new InvalidUnmarkException();
-                String check = input.substring(7).trim();
-                if (check.isEmpty()) throw new InvalidUnmarkException();
-                if (counter == 0) throw new NoElementException();
-                int index = Integer.parseInt(check) - 1;
-                if (index >= counter) throw new InvalidIndexException(counter);
-                tasks.get(index).unDone();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("  " + tasks.get(index).toString());
-
-            } else if (input.equals("todo") || input.startsWith("todo ")) {
-
-                if (input.equals("todo")) throw new InvalidTodoException();
-                String check = input.substring(5).trim();
-                if (check.isEmpty()) throw new InvalidTodoException();
-                Task task = new Todo(check);
-                tasks.add(task);
-                counter++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + task.toString());
-                System.out.println("Now you have " + counter + " tasks in the list.");
-
-            } else if (input.equals("deadline") || input.startsWith("deadline ")) {
-
-                if (input.equals("deadline")) throw new InvalidDeadlineException();
-                String check = input.substring(9).trim();
-                String[] sub = breakString(check);
-                if (sub.length == 0 || sub.length > 2) throw new InvalidDeadlineException();
-                if (sub.length == 1) throw new InvalidDeadlineTimeException();
-                LocalDate deadline = null;
-                try {
-                    deadline = LocalDate.parse(sub[1]);
-                } catch (DateTimeParseException e) {
-                    throw new QlinException("Sry, the date format is invalid, pls follow this format: \"yyyy-mm-dd\"");
-                }
-                Task task = new Deadline(sub[0], deadline);
-
-
-
-                tasks.add(task);
-                counter++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + task.toString());
-                System.out.println("Now you have " + counter + " tasks in the list.");
-
-            } else if (input.equals("event") || input.startsWith("event ")) {
-
-                if (input.equals("event")) throw new InvalidEventException();
-                String check = input.substring(6).trim();
-                String[] sub = breakString(check);
-                if (sub.length != 3) throw new InvalidEventException();
-                Task task = new Event(sub[0], sub[1], sub[2]);
-                tasks.add(task);
-                counter++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + task.toString());
-                System.out.println("Now you have " + counter + " tasks in the list.");
-
-            } else if (input.equals("delete") || input.startsWith("delete ")) {
-
-                if (input.equals("delete")) throw new InvalidDeleteException();
-                String check = input.substring(7).trim();
-                if (check.isEmpty()) throw new InvalidDeleteException();
-                if (counter == 0) throw new NoElementException();
-                int index = Integer.parseInt(check) - 1;
-                if (index >= counter) throw new InvalidIndexException(counter);
-                System.out.println("Noted. I've removed this task:");
-                System.out.println("  " + tasks.get(index).toString());
-                counter--;
-                System.out.println("Now you have " + counter + " tasks in the list.");
-                tasks.remove(index);
-
-            } else {
-
-                throw new InvalidInputException();
-
-            }
-
-        }
-        return;
-
-    }
-
-    public static void initialize() throws IOException {
-        Scanner sc = new Scanner(new File("data/qlin.txt"));
-
-        while (sc.hasNextLine()) {
-            buildArrayList(sc.nextLine());
-        }
-
-        sc.close();
-    }
-
-    public static void buildArrayList(String s) {
-        String[] strings = breakString(s);
-        Task history;
-        if (strings[0].equals("task")) {
-            history = new Task(strings[1]);
-            if (strings[2].equals("1")) history.setDone();
-        } else if (strings[0].equals("todo")) {
-            history = new Todo(strings[1]);
-            if (strings[2].equals("1")) history.setDone();
-        } else if (strings[0].equals("deadline")) {
-            history = new Deadline(strings[1], LocalDate.parse(strings[2]));
-            if (strings[3].equals("1")) history.setDone();
-        } else {
-            history = new Event(strings[1], strings[2], strings[3]);
-            if (strings[4].equals("1")) history.setDone();
-        }
-        tasks.add(history);
-        counter++;
-    }
-
-    public static void store() {
-        Path path = Paths.get("data/qlin.txt");
-        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-            for (Task t: tasks) {
-                String storeString = t.toStoreFormat();
-                writer.write(storeString);
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+    static boolean isTerminate = false;
 
     public static void main(String[] args) {
         System.out.println("Hello!, I'm Qlin.\n" + "What can I do for you?\n");
@@ -236,14 +18,14 @@ public class Qlin {
             }
         } else {
             try {
-                initialize();
+                Storage.initialize();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
-        while (!terminate) {
+        while (!isTerminate) {
             try {
-                responder();
+                Responder.respond();
             } catch (QlinException e) {
                 e.echo();
             } catch (Exception e) {
@@ -251,6 +33,6 @@ public class Qlin {
                 return;
             }
         }
-        store();
+        Storage.store();
     }
 }
