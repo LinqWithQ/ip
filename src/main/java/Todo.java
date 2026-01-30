@@ -7,4 +7,10 @@ public class Todo extends Task{
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    @Override
+    public String toStoreFormat() {
+        if (isDone) return "todo /" + taskName + " /1";
+        return "todo /" + taskName + " /0";
+    }
 }
