@@ -94,8 +94,13 @@ public class Responder {
             System.out.println("Now you have " + TrackList.getLen() + " tasks in the list.");
 
         } else if (input.equals("delete") || input.startsWith("delete ")) {
-
             if (input.equals("delete")) throw new InvalidDeleteException();
+            //special command
+            if (input.equals("delete all")) {
+                TrackList.deleteAll();
+                System.out.println("Ok, all tasks are deleted.");
+                return;
+            }
             String check = input.substring(7).trim();
             if (check.isEmpty()) throw new InvalidDeleteException();
             if (TrackList.getLen() == 0) throw new NoElementException();
