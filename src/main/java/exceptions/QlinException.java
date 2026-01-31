@@ -12,6 +12,9 @@ public class QlinException extends Exception{
         super();
     }
 
+    /**
+     * Equivalent to System.out.println(e.getmMessage()) for all QlinException objects
+     */
     public void echo() {
         System.out.println(this.message);
     }

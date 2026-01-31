@@ -12,6 +12,10 @@ import java.util.Scanner;
 
 public class Storage {
 
+    /**
+     * Reads the qlin.txt and rebuild the arraylist.
+     * @throws IOException
+     */
     public static void initialize() throws IOException {
         Scanner sc = new Scanner(new File("qlin.txt"));
         while (sc.hasNextLine()) {
@@ -20,6 +24,10 @@ public class Storage {
         sc.close();
     }
 
+    /**
+     * The concrete method for adding Task object into the arraylist.
+     * @param s A Task object's string in the format for storing purpose
+     */
     public static void addTask(String s) {
         String[] strings = Parser.breakString(s);
         Task history;
@@ -44,6 +52,9 @@ public class Storage {
         TrackList.add(history);
     }
 
+    /**
+     * Clears the qlin.txt file and the rewrite according to the tasks in the arraylist.
+     */
     public static void store() {
         Path path = Paths.get("qlin.txt");
         // clear everything
