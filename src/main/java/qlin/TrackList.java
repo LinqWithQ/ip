@@ -4,21 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrackList {
+
     private static List<Task> tasks = new ArrayList<>();
+
     public static void add(Task t) {
         tasks.add(t);
     }
+
     public static void delete(int i) {
         tasks.remove(i);
     }
+
     public static Task get(int i) {
         return tasks.get(i);
     }
-    public static int getLen() {
+
+    public static int size() {
         return tasks.size();
     }
+
     public static List<Task> getList() {
         return tasks;
     }
-    public static void deleteAll() {tasks = new ArrayList<>(); }
+
+    public static void deleteAll() {
+        tasks = new ArrayList<>();
+    }
 }

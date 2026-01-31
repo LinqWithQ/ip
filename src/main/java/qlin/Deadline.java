@@ -19,7 +19,10 @@ public class Deadline extends Task{
 
     @Override
     public String toStoreFormat() {
-        if (this.isDone) return "deadline /" + this.taskName + " /" + this.deadlineDate.toString() + " /1";
-        return "deadline /" + this.taskName + " /" + this.deadlineDate.toString() + " /0";
+        if (this.isDone) {
+            return "deadline /" + this.taskName + " /" + this.deadlineDate.toString() + " /1";
+        } else {
+            return "deadline /" + this.taskName + " /" + this.deadlineDate.toString() + " /0";
+        }
     }
 }

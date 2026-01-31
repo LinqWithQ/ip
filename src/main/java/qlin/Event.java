@@ -18,7 +18,10 @@ public class Event extends Task{
 
     @Override
     public String toStoreFormat() {
-        if (this.isDone) return "event /" + this.taskName + " /" + this.beginTime + " /" + this.endTime + " /1";
-        return "event /" + this.taskName + " /" + this.beginTime + " /" + this.endTime + " /0";
+        if (this.isDone) {
+            return "event /" + this.taskName + " /" + this.beginTime + " /" + this.endTime + " /1";
+        } else {
+            return "event /" + this.taskName + " /" + this.beginTime + " /" + this.endTime + " /0";
+        }
     }
 }
