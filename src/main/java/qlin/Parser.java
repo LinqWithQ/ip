@@ -14,8 +14,7 @@ public class Parser {
      * @return An array of Strings
      */
     public static String[] breakString(String s) {
-        // special adjustment
-        s = "/" + s;
+        s = "/" + s; // special adjustment
         HashMap<Integer, Integer> hashmap = new HashMap<>();
         int count = 0;
         for (int i = 0; i < s.length(); i++) {
@@ -37,9 +36,13 @@ public class Parser {
         // remove any empty string
         int empty = 0;
         for (String t: result) {
-            if (t.isEmpty()) empty += 1;
+            if (t.isEmpty()) {
+                empty += 1;
+            }
         }
-        if (empty == 0) return result;
+        if (empty == 0) {
+            return result;
+        }
         int temp = count - empty;
         String[] a = new String[temp];
         temp = 0;
