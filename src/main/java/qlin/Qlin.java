@@ -16,8 +16,8 @@ public class Qlin {
         System.out.println("Hello! I'm Qlin.\n" + "What can I do for you?");
         sc = new Scanner(System.in);
         isTerminate = false;
-        if (!Files.exists(Path.of("data/qlin.txt"))) {
-            Path path = Paths.get("data/qlin.txt");
+        if (!Files.exists(Path.of("qlin.txt"))) {
+            Path path = Paths.get("qlin.txt");
             try {
                 Files.createFile(path);
             } catch (IOException e) {

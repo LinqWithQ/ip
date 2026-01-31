@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Storage {
 
     public static void initialize() throws IOException {
-        Scanner sc = new Scanner(new File("data/qlin.txt"));
+        Scanner sc = new Scanner(new File("qlin.txt"));
         while (sc.hasNextLine()) {
             addTask(sc.nextLine());
         }
@@ -23,24 +23,29 @@ public class Storage {
     public static void addTask(String s) {
         String[] strings = Parser.breakString(s);
         Task history;
-        if (strings[0].equals("task")) {
-            history = new Task(strings[1]);
-            if (strings[2].equals("1")) history.setDone();
-        } else if (strings[0].equals("todo")) {
-            history = new Todo(strings[1]);
-            if (strings[2].equals("1")) history.setDone();
-        } else if (strings[0].equals("deadline")) {
-            history = new Deadline(strings[1], LocalDate.parse(strings[2]));
-            if (strings[3].equals("1")) history.setDone();
-        } else {
-            history = new Event(strings[1], strings[2], strings[3]);
-            if (strings[4].equals("1")) history.setDone();
+        switch (strings[0]) {
+            case "task" -> {
+                history = new Task(strings[1]);
+                if (strings[2].equals("1")) history.setDone();
+            }
+            case "todo" -> {
+                history = new Todo(strings[1]);
+                if (strings[2].equals("1")) history.setDone();
+            }
+            case "deadline" -> {
+                history = new Deadline(strings[1], LocalDate.parse(strings[2]));
+                if (strings[3].equals("1")) history.setDone();
+            }
+            default -> {
+                history = new Event(strings[1], strings[2], strings[3]);
+                if (strings[4].equals("1")) history.setDone();
+            }
         }
         TrackList.add(history);
     }
 
     public static void store() {
-        Path path = Paths.get("data/qlin.txt");
+        Path path = Paths.get("qlin.txt");
         // clear everything
         try {
             Files.newBufferedWriter(path, StandardOpenOption.TRUNCATE_EXISTING).close();
