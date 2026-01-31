@@ -21,4 +21,14 @@ public class TrackList {
         return tasks;
     }
     public static void deleteAll() {tasks = new ArrayList<>(); }
+
+    public static List<Task> searchName(String name) {
+        List<Task> result = new ArrayList<>();
+        for (Task t: tasks) {
+            if (t.getName().contains(name)) {
+                result.add(t);
+            }
+        }
+        return result;
+    }
 }

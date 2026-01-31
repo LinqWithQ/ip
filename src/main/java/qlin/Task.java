@@ -17,7 +17,9 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getName() { return this.taskName; }
+    public String getName() {
+        return this.taskName;
+    }
 
     @Override
     public String toString() {
