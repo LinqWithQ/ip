@@ -6,4 +6,6 @@ event 4 /b /e
 mark 3
 delete 1
 list
+find 3
+find 1
 bye
