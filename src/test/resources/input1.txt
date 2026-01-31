@@ -1,2 +1,9 @@
 delete all
+todo 1
+todo 2
+deadline 3 /2011-11-11
+event 4 /b /e
+mark 3
+delete 1
+list
 bye

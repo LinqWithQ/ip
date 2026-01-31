@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -14,12 +15,12 @@ public class Storage {
     public static void initialize() throws IOException {
         Scanner sc = new Scanner(new File("data/qlin.txt"));
         while (sc.hasNextLine()) {
-            buildArrayList(sc.nextLine());
+            addTask(sc.nextLine());
         }
         sc.close();
     }
 
-    public static void buildArrayList(String s) {
+    public static void addTask(String s) {
         String[] strings = Parser.breakString(s);
         Task history;
         if (strings[0].equals("task")) {
@@ -40,6 +41,13 @@ public class Storage {
 
     public static void store() {
         Path path = Paths.get("data/qlin.txt");
+        // clear everything
+        try {
+            Files.newBufferedWriter(path, StandardOpenOption.TRUNCATE_EXISTING).close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        // rewrite
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             for (Task t: TrackList.getList()) {
                 String storeString = t.toStoreFormat();

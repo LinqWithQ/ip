@@ -89,8 +89,8 @@ public class Responder {
             if (index >= TrackList.getLen()) throw new InvalidIndexException(TrackList.getLen());
             System.out.println("Noted. I've removed this task:");
             System.out.println("  " + TrackList.get(index).toString());
-            System.out.println("Now you have " + TrackList.getLen() + " tasks in the list.");
             TrackList.delete(index);
+            System.out.println("Now you have " + TrackList.getLen() + " tasks in the list.");
         } else {
             throw new InvalidInputException();
         }
