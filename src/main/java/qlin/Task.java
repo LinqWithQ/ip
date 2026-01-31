@@ -25,6 +25,14 @@ public class Task {
     }
 
     /**
+     * Return the current task's name
+     * @return Task's name
+     */
+    public String getName() {
+        return this.taskName;
+    }
+
+    /**
      * Returns a string in a format that is meant to be shown in the UI
      * @return Task's string in format for UI
      */

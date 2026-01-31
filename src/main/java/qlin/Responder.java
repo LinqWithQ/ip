@@ -3,6 +3,8 @@ package qlin;
 import exceptions.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Responder {
@@ -134,8 +136,18 @@ public class Responder {
             System.out.println("  " + TrackList.get(index).toString());
             TrackList.delete(index);
             System.out.println("Now you have " + TrackList.size() + " tasks in the list.");
+        } else if (input.equals("find") || input.startsWith("find ")) {
+            String check = input.substring(5).trim();
+            if (check.isEmpty()) throw new InvalidFindException();
+            if (TrackList.size() == 0) throw new NoElementException();
+            List<Task> result = TrackList.searchName(check);
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < result.size(); i++) {
+                System.out.println((i + 1) + ". " + result.get(i).toString());
+            }
         } else {
             throw new InvalidInputException();
         }
+        return;
     }
 }
