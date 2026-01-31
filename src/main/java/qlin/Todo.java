@@ -21,7 +21,10 @@ public class Todo extends Task{
      */
     @Override
     public String toStoreFormat() {
-        if (this.isDone) return "todo /" + this.taskName + " /1";
-        return "todo /" + this.taskName + " /0";
+        if (this.isDone) {
+            return "todo /" + this.taskName + " /1";
+        } else {
+            return "todo /" + this.taskName + " /0";
+        }
     }
 }

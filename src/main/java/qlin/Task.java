@@ -38,8 +38,11 @@ public class Task {
      */
     @Override
     public String toString() {
-        if (isDone) return "[X] " + taskName;
-        return "[ ] " + taskName;
+        if (isDone) {
+            return "[X] " + taskName;
+        } else {
+            return "[ ] " + taskName;
+        }
     }
 
     /**
@@ -47,7 +50,10 @@ public class Task {
      * @return Task's string in format for qlin.txt
      */
     public String toStoreFormat() {
-        if (this.isDone) return "task /" + this.taskName + " /1";
-        return "task /" + this.taskName + " /0";
+        if (this.isDone) {
+            return "task /" + this.taskName + " /1";
+        } else {
+            return "task /" + this.taskName + " /0";
+        }
     }
 }

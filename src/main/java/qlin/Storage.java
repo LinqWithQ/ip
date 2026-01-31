@@ -34,19 +34,27 @@ public class Storage {
         switch (strings[0]) {
             case "task" -> {
                 history = new Task(strings[1]);
-                if (strings[2].equals("1")) history.setDone();
+                if (strings[2].equals("1")) {
+                    history.setDone();
+                }
             }
             case "todo" -> {
                 history = new Todo(strings[1]);
-                if (strings[2].equals("1")) history.setDone();
+                if (strings[2].equals("1")) {
+                    history.setDone();
+                }
             }
             case "deadline" -> {
                 history = new Deadline(strings[1], LocalDate.parse(strings[2]));
-                if (strings[3].equals("1")) history.setDone();
+                if (strings[3].equals("1")) {
+                    history.setDone();
+                }
             }
             default -> {
                 history = new Event(strings[1], strings[2], strings[3]);
-                if (strings[4].equals("1")) history.setDone();
+                if (strings[4].equals("1")) {
+                    history.setDone();
+                }
             }
         }
         TrackList.add(history);
