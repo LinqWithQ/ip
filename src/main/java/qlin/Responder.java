@@ -3,7 +3,6 @@ package qlin;
 import exceptions.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,8 +10,8 @@ public class Responder {
 
     /**
      * The main component of logic.
-     * Read the input from CLI with a scanner and perform the command or throws corresponding exceptions
-     * @throws QlinException The super type for most of the exceptions
+     * Read the input from CLI with a scanner and perform the command or throws corresponding exceptions.
+     * @throws QlinException The super type for all of the exceptions that are related to Task object.
      */
     public static void respond() throws QlinException {
         Scanner sc = Qlin.sc;
@@ -21,6 +20,9 @@ public class Responder {
             System.out.println("Goodbye, hope to not see you again!");
             Qlin.isTerminate = true;
         } else if (input.equals("list")) {
+            if (TrackList.size() == 0) {
+                throw new NoElementException();
+            }
             System.out.println("Here are the tasks in your list:");
             for (int x = 0; x < TrackList.size(); x++) {
                 System.out.println((x + 1) + ". " + TrackList.get(x).toString());
@@ -138,9 +140,17 @@ public class Responder {
             System.out.println("Now you have " + TrackList.size() + " tasks in the list.");
         } else if (input.equals("find") || input.startsWith("find ")) {
             String check = input.substring(5).trim();
-            if (check.isEmpty()) throw new InvalidFindException();
-            if (TrackList.size() == 0) throw new NoElementException();
+            if (check.isEmpty()) {
+                throw new InvalidFindException();
+            }
+            if (TrackList.size() == 0) {
+                throw new NoElementException();
+            }
             List<Task> result = TrackList.searchName(check);
+            if (result.isEmpty()) {
+                System.out.println("No task with such name is found.");
+                return;
+            }
             System.out.println("Here are the matching tasks in your list:");
             for (int i = 0; i < result.size(); i++) {
                 System.out.println((i + 1) + ". " + result.get(i).toString());
@@ -148,6 +158,5 @@ public class Responder {
         } else {
             throw new InvalidInputException();
         }
-        return;
     }
 }
