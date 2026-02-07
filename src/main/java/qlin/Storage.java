@@ -84,7 +84,8 @@ public class Storage {
         Path path = Paths.get("qlin.txt");
         // clear everything
         try {
-            Files.newBufferedWriter(path, StandardOpenOption.TRUNCATE_EXISTING).close();
+            Files.write(path, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
+            //if (Files.size(path) == 0) System.out.println(0);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

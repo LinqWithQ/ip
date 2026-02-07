@@ -2,9 +2,7 @@ package qlin;
 
 import exceptions.*;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -40,45 +38,10 @@ public class Processor {
                 }
                 UI.printList();
             }
-            case "todo" -> {
-                if (inputs.length == 1) {
-                    throw new InvalidTodoException();
-                } else {
-                    Task t = new Todo(inputs[1]);
-                    TrackList.add(t);
-                }
-            }
-            case "deadline" -> {
-                if (inputs.length <= 2) {
-                    throw new InvalidDeadlineException();
-                } else {
-                    LocalDateTime dateTime;
-                    try {
-                        dateTime = LocalDateTime.parse(inputs[2], FORMATTER);
-                    } catch (DateTimeParseException e) {
-                        throw new InvalidDateTimeException();
-                    }
-                    Task t = new Deadline(inputs[1], dateTime);
-                    TrackList.add(t);
-                    UI.printAddTask(t);
-                }
-            }
-            case "event" -> {
-                if (inputs.length <= 3) {
-                    throw new InvalidEventException();
-                } else {
-                    LocalDateTime dateTime1;
-                    LocalDateTime dateTime2;
-                    try {
-                        dateTime1 = LocalDateTime.parse(inputs[2], FORMATTER);
-                        dateTime2 = LocalDateTime.parse(inputs[3], FORMATTER);
-                    } catch (DateTimeParseException e) {
-                        throw new InvalidDateTimeException();
-                    }
-                    Task t = new Event(inputs[1], dateTime1, dateTime2);
-                    TrackList.add(t);
-                    UI.printAddTask(t);
-                }
+            case "todo", "deadline", "event" -> {
+                Task t = TaskFactory.createTask(inputs);
+                TrackList.add(t);
+                UI.printAddTask(t);
             }
             case "mark" -> {
                 if (inputs.length == 1) {

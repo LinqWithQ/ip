@@ -5,7 +5,7 @@ import java.io.*;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertLinesMatch;
 
-public class ResponderTest {
+public class ProcessorTest {
 
     @Test
     public void test0() throws IOException {
@@ -37,7 +37,7 @@ public class ResponderTest {
         assertLinesMatch(expectedLines, actualLines);
     }
 
-    //@Test
+    @Test
     public void test2() throws IOException {
         InputStream input = getClass().getClassLoader().getResourceAsStream("input2.txt");
         System.setIn(input);

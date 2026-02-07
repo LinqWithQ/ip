@@ -9,6 +9,7 @@ public class Qlin {
     static Scanner sc;
 
     public static void main(String[] args) {
+        TrackList.deleteAll();
         sc = new Scanner(System.in);
         isTerminate = false;
         UI.printGreeting();
