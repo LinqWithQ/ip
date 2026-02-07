@@ -52,6 +52,6 @@ public class UI {
     }
 
     public static void printDeleteAll() {
-        System.out.println("OK, all tasks have been deleted");
+        System.out.println("Ok, all tasks had been deleted.");
     }
 }

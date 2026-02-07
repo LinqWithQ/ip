@@ -1,11 +1,11 @@
 delete all
-todo 1
-todo 2
-deadline 3 /2011-11-11
-event 4 /b /e
-mark 3
-delete 1
+todo /1
+todo /2
+deadline /3 /2011-11-11T00:00
+event /wedding /2012-12-12T22:00 /2012-12-13T00:00
+mark /3
+delete /1
 list
-find 3
-find 1
+find /3
+find /1
 bye

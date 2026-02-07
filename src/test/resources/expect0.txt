@@ -1,4 +1,4 @@
 Hello! I'm Qlin.
 What can I do for you?
-Ok, all tasks are deleted.
+Ok, all tasks had been deleted.
 Goodbye, hope to not see you again!

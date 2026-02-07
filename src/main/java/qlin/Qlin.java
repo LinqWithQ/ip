@@ -1,7 +1,6 @@
 package qlin;
 
 import exceptions.*;
-
 import java.util.Scanner;
 
 public class Qlin {

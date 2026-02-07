@@ -5,7 +5,6 @@ import exceptions.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,13 +21,23 @@ public class Processor {
         Scanner sc = Qlin.sc;
         String input = sc.nextLine();
         String[] inputs = Parser.breakString(input);
-        System.out.println(Arrays.toString(inputs));
+
+        // for debugging purpose
+        /*
+        for (String s: inputs) {
+            System.out.println(s);
+        }
+        */
+
         switch (inputs[0]) {
             case "bye" -> {
                 UI.printBye();
                 Qlin.isTerminate = true;
             }
             case "list" -> {
+                if (TrackList.size() == 0) {
+                    throw new NoElementException();
+                }
                 UI.printList();
             }
             case "todo" -> {
@@ -47,7 +56,8 @@ public class Processor {
                     try {
                         dateTime = LocalDateTime.parse(inputs[2], FORMATTER);
                     } catch (DateTimeParseException e) {
-                        throw new InvalidDateTimeException();                    }
+                        throw new InvalidDateTimeException();
+                    }
                     Task t = new Deadline(inputs[1], dateTime);
                     TrackList.add(t);
                     UI.printAddTask(t);
