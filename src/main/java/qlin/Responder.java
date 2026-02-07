@@ -11,7 +11,7 @@ public class Responder {
     /**
      * The main component of logic.
      * Read the input from CLI with a scanner and perform the command or throws corresponding exceptions.
-     * @throws QlinException The super type for all of the exceptions that are related to Task object.
+     * @throws QlinException The super type for all the exceptions that are related to Task object.
      */
     public static void respond() throws QlinException {
         Scanner sc = Qlin.sc;

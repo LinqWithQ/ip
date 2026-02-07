@@ -16,12 +16,26 @@ public class Storage {
      * Reads the qlin.txt and rebuild the arraylist.
      * @throws IOException
      */
-    public static void initialize() throws IOException {
-        Scanner sc = new Scanner(new File("qlin.txt"));
-        while (sc.hasNextLine()) {
-            addTask(sc.nextLine());
+    public static void initialize() {
+        if (!Files.exists(Path.of("qlin.txt"))) {
+            Path path = Paths.get("qlin.txt");
+            try {
+                Files.createFile(path);
+            } catch (IOException e) {
+                System.err.println("Could not create file: " + e.getMessage());
+            }
+        } else {
+            try {
+                Scanner sc = new Scanner(new File("qlin.txt"));
+                while (sc.hasNextLine()) {
+                    addTask(sc.nextLine());
+                }
+                sc.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                Qlin.isTerminate = true;
+            }
         }
-        sc.close();
     }
 
     /**
