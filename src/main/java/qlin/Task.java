@@ -1,10 +1,17 @@
 package qlin;
 
+/**
+ * The class that represent task.
+ */
 public class Task {
 
     protected boolean isDone;
     protected final String taskName;
 
+    /**
+     * Returns a Task object.
+     * @param n The task's name.
+     */
     public Task(String n) {
         this.isDone = false;
         this.taskName = n;

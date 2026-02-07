@@ -37,7 +37,7 @@ public class ResponderTest {
         assertLinesMatch(expectedLines, actualLines);
     }
 
-    //@Test
+    @Test
     public void test2() throws IOException {
         InputStream input = getClass().getClassLoader().getResourceAsStream("input2.txt");
         System.setIn(input);

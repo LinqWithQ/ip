@@ -8,6 +8,9 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The class that contain the method for main logic of the chatbot.
+ */
 public class Processor {
 
     static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
@@ -15,6 +18,7 @@ public class Processor {
     /**
      * The main component of logic.
      * Read the input from CLI with a scanner and perform the command or throws corresponding exceptions.
+     * It also calls methods from UI to create responds accordingly.
      * @throws QlinException The super type for all the exceptions that are thrown by the method.
      */
     public static void process() throws QlinException {

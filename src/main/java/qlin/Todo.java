@@ -1,7 +1,14 @@
 package qlin;
 
+/**
+ * The class that represent todo tasks.
+ */
 public class Todo extends Task{
 
+    /**
+     * Returns a Todo object.
+     * @param name Todo's name.
+     */
     public Todo(String name) {
         super(name);
     }

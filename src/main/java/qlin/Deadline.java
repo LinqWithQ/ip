@@ -3,10 +3,18 @@ package qlin;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The class that represent deadline tasks.
+ */
 public class Deadline extends Task{
 
     private final LocalDateTime deadlineDate;
 
+    /**
+     * The method for create a deadline task object.
+     * @param name Deadline's name.
+     * @param dateTime The deadline time in the format of "yyyy-MM-dd'T'HH:mm".
+     */
     public Deadline(String name, LocalDateTime dateTime) {
         super(name);
         this.deadlineDate = dateTime;

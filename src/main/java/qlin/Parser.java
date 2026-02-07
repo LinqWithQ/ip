@@ -2,6 +2,9 @@ package qlin;
 
 import java.util.HashMap;
 
+/**
+ * The class that contains the method parse or breakString.
+ */
 public class Parser {
 
     /**

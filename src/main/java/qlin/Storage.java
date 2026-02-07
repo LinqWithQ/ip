@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * The class that contain methods for creating, reading and writing of history text file, qlin.txt.
+ */
 public class Storage {
 
     static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
@@ -42,7 +45,7 @@ public class Storage {
     }
 
     /**
-     * The concrete method for adding Task object into the arraylist from the history.
+     * Add a single Task object into the arraylist from the history.
      * @param s A Task object's string in the format for storing purpose
      */
     private static void addTask(String s) {
