@@ -1,11 +1,14 @@
 package qlin;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task{
 
-    private final String beginTime;
-    private final String endTime;
+    private final LocalDateTime beginTime;
+    private final LocalDateTime endTime;
 
-    public Event(String name, String beginTime, String endTime) {
+    public Event(String name, LocalDateTime beginTime, LocalDateTime endTime) {
         super(name);
         this.beginTime = beginTime;
         this.endTime = endTime;
@@ -17,7 +20,8 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + beginTime  + " to: " + endTime + ")";
+        return "[E]" + super.toString() + " (from: " + beginTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
+                + " to: " + endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
     }
 
     /**
@@ -27,9 +31,9 @@ public class Event extends Task{
     @Override
     public String toStoreFormat() {
         if (this.isDone) {
-            return "event /" + this.taskName + " /" + this.beginTime + " /" + this.endTime + " /1";
+            return "event /" + this.taskName + " /" + this.beginTime.toString() + " /" + this.endTime.toString() + " /1";
         } else {
-            return "event /" + this.taskName + " /" + this.beginTime + " /" + this.endTime + " /0";
+            return "event /" + this.taskName + " /" + this.beginTime.toString() + " /" + this.endTime.toString() + " /0";
         }
     }
 }

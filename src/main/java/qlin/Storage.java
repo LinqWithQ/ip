@@ -7,10 +7,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Storage {
+
+    static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     /**
      * Reads the qlin.txt and rebuild the arraylist.
@@ -28,7 +31,7 @@ public class Storage {
             try {
                 Scanner sc = new Scanner(new File("qlin.txt"));
                 while (sc.hasNextLine()) {
-                    addTask(sc.nextLine());
+                    Storage.addTask(sc.nextLine());
                 }
                 sc.close();
             } catch (Exception e) {
@@ -39,10 +42,10 @@ public class Storage {
     }
 
     /**
-     * The concrete method for adding Task object into the arraylist.
+     * The concrete method for adding Task object into the arraylist from the history.
      * @param s A Task object's string in the format for storing purpose
      */
-    public static void addTask(String s) {
+    private static void addTask(String s) {
         String[] strings = Parser.breakString(s);
         Task history;
         switch (strings[0]) {
@@ -59,13 +62,13 @@ public class Storage {
                 }
             }
             case "deadline" -> {
-                history = new Deadline(strings[1], LocalDate.parse(strings[2]));
+                history = new Deadline(strings[1], LocalDateTime.parse(strings[2], FORMATTER));
                 if (strings[3].equals("1")) {
                     history.setDone();
                 }
             }
             default -> {
-                history = new Event(strings[1], strings[2], strings[3]);
+                history = new Event(strings[1], LocalDateTime.parse(strings[2], FORMATTER), LocalDateTime.parse(strings[3], FORMATTER));
                 if (strings[4].equals("1")) {
                     history.setDone();
                 }

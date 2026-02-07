@@ -7,7 +7,7 @@ public class Parser {
     /**
      * Return an array of strings that contain trimmed strings from the input, s.
      * Each string is separated from other string by "/".
-     * Example: "a /b /  c" returns {"a", "b","c"}
+     * Example: "a /b /  c" returns {"a", "b", "c"}
      * Empty strings or strings that only consists of backspaces are ignored, "a/  //  /b" returns {"a", "b"}
      * Empty string returns {}
      * @param s A string

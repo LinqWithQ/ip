@@ -1,15 +1,15 @@
 package qlin;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
 
-    private final LocalDate deadlineDate;
+    private final LocalDateTime deadlineDate;
 
-    public Deadline(String name, LocalDate deadlineDate) {
+    public Deadline(String name, LocalDateTime dateTime) {
         super(name);
-        this.deadlineDate = deadlineDate;
+        this.deadlineDate = dateTime;
     }
 
     /**
@@ -18,7 +18,7 @@ public class Deadline extends Task{
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + this.deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
     }
 
     /**

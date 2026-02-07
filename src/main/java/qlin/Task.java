@@ -20,7 +20,7 @@ public class Task {
     /**
      * Sets current task to not done
      */
-    public void unDone() {
+    public void undone() {
         this.isDone = false;
     }
 
