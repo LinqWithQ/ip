@@ -16,7 +16,7 @@ public class Qlin {
         Storage.initialize();
         while (!isTerminate) {
             try {
-                Processer.process();
+                Processor.process();
             } catch (QlinException e) {
                 e.echo();
             } catch (Exception e) {

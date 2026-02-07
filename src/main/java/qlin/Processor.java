@@ -5,12 +5,11 @@ import exceptions.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class Processer {
+public class Processor {
 
     static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
@@ -48,8 +47,7 @@ public class Processer {
                     try {
                         dateTime = LocalDateTime.parse(inputs[2], FORMATTER);
                     } catch (DateTimeParseException e) {
-                        throw new QlinException("Sry, the datetime format is invalid, pls follow this format: \"yyyy-MM-dd'T'HH:mm\"");
-                    }
+                        throw new InvalidDateTimeException();                    }
                     Task t = new Deadline(inputs[1], dateTime);
                     TrackList.add(t);
                     UI.printAddTask(t);
@@ -65,7 +63,7 @@ public class Processer {
                         dateTime1 = LocalDateTime.parse(inputs[2], FORMATTER);
                         dateTime2 = LocalDateTime.parse(inputs[3], FORMATTER);
                     } catch (DateTimeParseException e) {
-                        throw new QlinException("Sry, the datetime format is invalid, pls follow this format: \"yyyy-MM-dd'T'HH:mm\"");
+                        throw new InvalidDateTimeException();
                     }
                     Task t = new Event(inputs[1], dateTime1, dateTime2);
                     TrackList.add(t);
