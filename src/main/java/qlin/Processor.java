@@ -1,14 +1,10 @@
 package qlin;
 
 import exceptions.*;
-
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
 public class Processor {
-
-    static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     /**
      * The main component of logic.

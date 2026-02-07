@@ -6,6 +6,6 @@ public class InvalidIndexException extends QlinException{
 
     @Override
     public void echo() {
-        System.out.println("Sry, pls try again with a valid index ranged [1, " + (TrackList.size() - 1) +"].");
+        System.out.println("Sry, pls try again with a valid index ranged [1, " + (TrackList.size()) +"].");
     }
 }

@@ -17,7 +17,7 @@ public class Storage {
 
     /**
      * Reads the qlin.txt and rebuild the arraylist.
-     * @throws IOException
+     * If no such file is found, then create a new file.
      */
     public static void initialize() {
         if (!Files.exists(Path.of("qlin.txt"))) {

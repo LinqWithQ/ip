@@ -7,5 +7,6 @@ public class InvalidInputException extends QlinException{
         System.out.println("Sry, your input is invalid");
         System.out.println("Valid commands: \"list\", \"mark\", \"unmark\", \"todo\", " +
                 "\"deadline\", \"event\", \"delete\", \"find\"");
+        System.out.println("Examples: todo /homework");
     }
 }
