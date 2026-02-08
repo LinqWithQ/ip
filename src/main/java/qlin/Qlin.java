@@ -1,15 +1,16 @@
 package qlin;
 
-import exceptions.*;
 import java.util.Scanner;
+
+import exceptions.QlinException;
 
 /**
  * The class that represent the Chatbot Qlin.
  */
 public class Qlin {
 
-    static boolean isTerminate;
-    static Scanner sc;
+    private static Scanner sc;
+    private static Boolean isTerminate;
 
     /**
      * The main method.
@@ -21,15 +22,15 @@ public class Qlin {
         TrackList.deleteAll();
         sc = new Scanner(System.in);
         isTerminate = false;
+        Processor.setup(sc, isTerminate);
         UI.printGreeting();
-        Storage.initialize();
+        Storage.initialize(sc, isTerminate);
         while (!isTerminate) {
             try {
                 Processor.process();
             } catch (QlinException e) {
                 e.echo();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
                 isTerminate = true;
             }
         }

@@ -3,7 +3,7 @@ package exceptions;
 /**
  * The class that represent the invalid input for find command.
  */
-public class InvalidFindException extends QlinException{
+public class InvalidFindException extends QlinException {
 
     /**
      * Prints the error message.

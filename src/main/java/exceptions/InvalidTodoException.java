@@ -3,7 +3,7 @@ package exceptions;
 /**
  * The class that represent the invalid input for todo command.
  */
-public class InvalidTodoException extends QlinException{
+public class InvalidTodoException extends QlinException {
 
     /**
      * Prints the error message.

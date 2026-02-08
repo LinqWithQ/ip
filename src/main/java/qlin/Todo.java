@@ -3,7 +3,7 @@ package qlin;
 /**
  * The class that represent todo tasks.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Returns a Todo object.

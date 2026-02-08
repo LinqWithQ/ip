@@ -3,7 +3,7 @@ package exceptions;
 /**
  * The class that represent the invalid input for event command.
  */
-public class InvalidEventException extends QlinException{
+public class InvalidEventException extends QlinException {
 
     /**
      * Prints the error message.

@@ -3,7 +3,7 @@ package exceptions;
 /**
  * The class that represent the invalid input for deadline command.
  */
-public class InvalidDeadlineException extends QlinException{
+public class InvalidDeadlineException extends QlinException {
 
     /**
      * Prints the error message.

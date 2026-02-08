@@ -4,9 +4,9 @@ package exceptions;
  * The class that represent the root exception for the chatbot.
  * A general exception.
  */
-public class QlinException extends Exception{
+public class QlinException extends Exception {
 
-    String message;
+    private String message;
 
     /**
      * Returns a QlinException objects.
@@ -22,6 +22,10 @@ public class QlinException extends Exception{
      */
     public QlinException() {
         super();
+    }
+
+    public String getMessage() {
+        return this.message;
     }
 
     /**
