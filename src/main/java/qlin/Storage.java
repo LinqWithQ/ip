@@ -29,6 +29,7 @@ public class Storage {
                 Files.createFile(path);
             } catch (IOException e) {
                 System.err.println("Could not create file: " + e.getMessage());
+                Qlin.isTerminate = true;
             }
         } else {
             try {
@@ -100,6 +101,7 @@ public class Storage {
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            Qlin.isTerminate = true;
         }
     }
 }

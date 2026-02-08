@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertLinesMatch;
 public class ResponderTest {
 
     @Test
-    public void test0() throws IOException {
+    public void test0() {
         InputStream input = getClass().getClassLoader().getResourceAsStream("input0.txt");
         System.setIn(input);
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
@@ -23,7 +23,7 @@ public class ResponderTest {
     }
 
     @Test
-    public void test1() throws IOException {
+    public void test1() {
         InputStream input = getClass().getClassLoader().getResourceAsStream("input1.txt");
         System.setIn(input);
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();
@@ -38,7 +38,7 @@ public class ResponderTest {
     }
 
     @Test
-    public void test2() throws IOException {
+    public void test2() {
         InputStream input = getClass().getClassLoader().getResourceAsStream("input2.txt");
         System.setIn(input);
         ByteArrayOutputStream outputBuffer = new ByteArrayOutputStream();

@@ -15,7 +15,7 @@ public class Qlin {
      * The main method.
      * Clears the task list, then rebuild the list from history from qlin.txt.
      * Lastly, stores the list into qlin.txt when isTerminate is true.
-     * @param args
+     * @param args An empty string.
      */
     public static void main(String[] args) {
         TrackList.deleteAll();

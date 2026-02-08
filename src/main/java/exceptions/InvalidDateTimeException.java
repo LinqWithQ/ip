@@ -3,7 +3,7 @@ package exceptions;
 /**
  * Class that represent the datetime format error for the chatbot.
  */
-public class InvalidDateTimeException extends QlinException{
+public class InvalidDateTimeException extends QlinException {
 
     /**
      * Prints the error message.
