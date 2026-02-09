@@ -1,11 +1,12 @@
 package qlin;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class QlinTest {
     @Test
-    public void Test0(){
+    public void test0() {
         assertEquals(0, 0);
     }
 }
