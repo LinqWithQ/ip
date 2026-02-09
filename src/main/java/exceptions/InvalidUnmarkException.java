@@ -6,11 +6,9 @@ package exceptions;
 public class InvalidUnmarkException extends QlinException {
 
     /**
-     * Prints the error message.
+     * Returns a InvalidUnmarkException object.
      */
-    @Override
-    public void echo() {
-        System.out.println("Sry, index number is required");
-        System.out.println("Pls follow this format: find /<index>");
+    public InvalidUnmarkException() {
+        super("Sry, index number is required\n" + "Pls follow this format: unmark /<index>");
     }
 }

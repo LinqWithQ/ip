@@ -9,6 +9,8 @@ import exceptions.QlinException;
  */
 public class Qlin {
 
+    private static Boolean isTerminate = false;
+
     /**
      * The main method.
      * Clears the task list, then rebuild the list from history from qlin.txt.
@@ -16,15 +18,15 @@ public class Qlin {
      * @param args An empty string.
      */
     public static void main(String[] args) {
-        TrackList.deleteAll();
         Scanner sc = new Scanner(System.in);
-        Boolean isTerminate = false;
-        Processor.setup(sc, isTerminate);
+        isTerminate = false;
+        TrackList.deleteAll();
         Storage.initialize(sc, isTerminate);
         UI.printGreeting();
         while (!isTerminate) {
             try {
-                Processor.process();
+                String input = sc.nextLine();
+                String output = Processor.process(input);
             } catch (QlinException e) {
                 e.echo();
             } catch (Exception e) {
@@ -32,5 +34,22 @@ public class Qlin {
             }
         }
         Storage.store();
+        sc.close();
+    }
+
+    /**
+     * Terminates the chatbot.
+     */
+    public static void terminate() {
+        Qlin.isTerminate = true;
+    }
+
+    /**
+     * Returns a string which is the response of the chatbot.
+     * @param input A string object which represent the user's input.
+     * @return a string object.
+     */
+    public String getResponse(String input) {
+        return "";
     }
 }

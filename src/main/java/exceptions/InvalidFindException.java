@@ -6,11 +6,10 @@ package exceptions;
 public class InvalidFindException extends QlinException {
 
     /**
-     * Prints the error message.
+     * Returns a InvalidFindException object.
      */
-    @Override
-    public void echo() {
-        System.out.println("Sry, search name is required");
-        System.out.println("Pls follow this format: find /<name>");
+    public InvalidFindException() {
+        super("Sry, search name is required\n"
+                + "Pls follow this format: find /<name>");
     }
 }
