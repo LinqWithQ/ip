@@ -6,10 +6,9 @@ package exceptions;
 public class NoElementException extends QlinException {
 
     /**
-     * Prints the error message.
+     * Returns a NoElementException object.
      */
-    @Override
-    public void echo() {
-        System.out.println("Sry, there is currently no task in the list.");
+    public NoElementException() {
+        super("Sry, there is currently no task in the list.");
     }
 }

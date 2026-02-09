@@ -1,17 +1,17 @@
 package exceptions;
 
+import qlin.TrackList;
+
 /**
  * The class that represent the invalid input command.
  */
 public class InvalidInputException extends QlinException {
 
     /**
-     * Prints the error message.
+     * Returns a InvalidInputException object.
      */
-    @Override
-    public void echo() {
-        System.out.println("Sry, your input is invalid");
-        System.out.println("Valid commands: \"list\", \"mark\", \"unmark\", \"todo\", "
+    public InvalidInputException() {
+        super("Sry, your input is invalid\n" + "Valid commands: \"list\", \"mark\", \"unmark\", \"todo\", "
                 + "\"deadline\", \"event\", \"delete\", \"find\"");
     }
 }

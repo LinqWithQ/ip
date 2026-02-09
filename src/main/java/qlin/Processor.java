@@ -24,8 +24,6 @@ import exceptions.QlinException;
  */
 public class Processor {
 
-    private static Scanner sc;
-    private static Boolean isTerminate;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     /**
@@ -34,10 +32,6 @@ public class Processor {
      * @param sc A Scanner object.
      * @param isTerminate A boolean object.
      */
-    public static void setup(Scanner sc, Boolean isTerminate) {
-        Processor.sc = sc;
-        Processor.isTerminate = isTerminate;
-    }
 
     /**
      * Returns nothing.
@@ -46,9 +40,9 @@ public class Processor {
      * It also calls methods from UI to create responds accordingly.
      * @throws QlinException The super type for all the exceptions that are thrown by the method.
      */
-    public static void process() throws QlinException {
-        String input = sc.nextLine();
+    public static String process(String input) throws QlinException {
         String[] inputs = Parser.breakString(input);
+        String result = "";
 
         // for debugging purpose
         /*
@@ -59,14 +53,15 @@ public class Processor {
 
         switch (inputs[0]) {
         case "bye" -> {
-            UI.printBye();
-            isTerminate = true;
+            result = UI.printBye();
+            Storage.store();
+            Qlin.terminate();
         }
         case "list" -> {
             if (TrackList.size() == 0) {
                 throw new NoElementException();
             }
-            UI.printList();
+            result = UI.printList();
         }
         case "todo" -> {
             if (inputs.length == 1) {
@@ -74,6 +69,7 @@ public class Processor {
             } else {
                 Task t = new Todo(inputs[1]);
                 TrackList.add(t);
+                result = UI.printAddTask(t);
             }
         }
         case "deadline" -> {
@@ -88,7 +84,7 @@ public class Processor {
                 }
                 Task t = new Deadline(inputs[1], dateTime);
                 TrackList.add(t);
-                UI.printAddTask(t);
+                result = UI.printAddTask(t);
             }
         }
         case "event" -> {
@@ -105,7 +101,7 @@ public class Processor {
                 }
                 Task t = new Event(inputs[1], dateTime1, dateTime2);
                 TrackList.add(t);
-                UI.printAddTask(t);
+                result = UI.printAddTask(t);
             }
         }
         case "mark" -> {
@@ -121,7 +117,7 @@ public class Processor {
                 }
                 Task t = TrackList.get(index);
                 t.setDone();
-                UI.printMarkTask(t);
+                result = UI.printMarkTask(t);
             }
         }
         case "unmark" -> {
@@ -137,7 +133,7 @@ public class Processor {
                 }
                 Task t = TrackList.get(index);
                 t.undone();
-                UI.printUnmarkTask(t);
+                result = UI.printUnmarkTask(t);
             }
         }
         case "delete" -> {
@@ -153,7 +149,7 @@ public class Processor {
                 }
                 Task t = TrackList.get(index);
                 TrackList.delete(index);
-                UI.printDelete(t);
+                result = UI.printDelete(t);
             }
         } case "find" -> {
             if (inputs.length == 1) {
@@ -163,16 +159,17 @@ public class Processor {
                     throw new NoElementException();
                 }
                 List<Task> tasks = TrackList.searchName(inputs[1]);
-                UI.printFind(tasks);
+                result = UI.printFind(tasks);
             }
         }
 
         // special command
         case "delete all" -> {
             TrackList.deleteAll();
-            UI.printDeleteAll();
+            result = UI.printDeleteAll();
         }
         default -> throw new InvalidInputException();
         }
+        return result;
     }
 }

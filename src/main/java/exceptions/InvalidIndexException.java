@@ -8,10 +8,9 @@ import qlin.TrackList;
 public class InvalidIndexException extends QlinException {
 
     /**
-     * Prints the error message.
+     * Returns a InvalidIndexException object.
      */
-    @Override
-    public void echo() {
-        System.out.println("Sry, pls try again with a valid index ranged [1, " + (TrackList.size() - 1) + "].");
+    public InvalidIndexException() {
+        super("Sry, pls try again with a valid index ranged [1, " + (TrackList.size() - 1) + "].");
     }
 }

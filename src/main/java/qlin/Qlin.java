@@ -1,13 +1,26 @@
 package qlin;
 
-import java.util.Scanner;
-
 import exceptions.QlinException;
+
+import java.util.Scanner;
 
 /**
  * The class that represent the Chatbot Qlin.
  */
 public class Qlin {
+
+    private static Boolean isTerminate = false;
+    private static Scanner sc;
+
+    /**
+     * Returns a Qlin object.
+     * This method initialize the chatbot.
+     */
+    public Qlin() {
+        isTerminate = false;
+        sc = new Scanner(System.in);
+        Storage.initialize(sc, isTerminate);
+    }
 
     /**
      * The main method.
@@ -16,21 +29,51 @@ public class Qlin {
      * @param args An empty string.
      */
     public static void main(String[] args) {
+        sc = new Scanner(System.in);
+        isTerminate = false;
         TrackList.deleteAll();
-        Scanner sc = new Scanner(System.in);
-        Boolean isTerminate = false;
-        Processor.setup(sc, isTerminate);
         Storage.initialize(sc, isTerminate);
         UI.printGreeting();
         while (!isTerminate) {
             try {
-                Processor.process();
+                String input = sc.nextLine();
+                String output = Processor.process(input);
             } catch (QlinException e) {
                 e.echo();
             } catch (Exception e) {
                 isTerminate = true;
             }
         }
-        Storage.store();
+        sc.close();
+    }
+
+    /**
+     * Terminates the chatbot.
+     */
+    public static void terminate() {
+        Qlin.isTerminate = true;
+    }
+
+    /**
+     * Returns the greeting.
+     * @return A string object.
+     */
+    public static String getGreeting() {
+        return UI.printGreeting();
+    }
+
+    /**
+     * Returns a string which is the response of the chatbot.
+     * @param input A string object which represent the user's input.
+     * @return a string object.
+     */
+    public String getResponse(String input) {
+        String result;
+        try {
+            result = Processor.process(input);
+        } catch (QlinException e) {
+            result = e.getMessage();
+        }
+        return result;
     }
 }

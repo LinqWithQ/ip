@@ -6,11 +6,9 @@ package exceptions;
 public class InvalidMarkException extends QlinException {
 
     /**
-     * Prints the error message.
+     * Returns a InvalidMarkException object.
      */
-    @Override
-    public void echo() {
-        System.out.println("Sry, index number is required");
-        System.out.println("Pls follow this format: find /<index>");
+    public InvalidMarkException() {
+        super("Sry, index number is required\n" + "Pls follow this format: mark /<index>");
     }
 }
