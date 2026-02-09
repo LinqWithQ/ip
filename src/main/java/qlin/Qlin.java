@@ -9,9 +9,6 @@ import exceptions.QlinException;
  */
 public class Qlin {
 
-    private static Scanner sc;
-    private static Boolean isTerminate;
-
     /**
      * The main method.
      * Clears the task list, then rebuild the list from history from qlin.txt.
@@ -20,11 +17,11 @@ public class Qlin {
      */
     public static void main(String[] args) {
         TrackList.deleteAll();
-        sc = new Scanner(System.in);
-        isTerminate = false;
+        Scanner sc = new Scanner(System.in);
+        Boolean isTerminate = false;
         Processor.setup(sc, isTerminate);
-        UI.printGreeting();
         Storage.initialize(sc, isTerminate);
+        UI.printGreeting();
         while (!isTerminate) {
             try {
                 Processor.process();
