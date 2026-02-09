@@ -53,8 +53,9 @@ public class Processor {
 
         switch (inputs[0]) {
         case "bye" -> {
-            Qlin.terminate();
             result = UI.printBye();
+            Storage.store();
+            Qlin.terminate();
         }
         case "list" -> {
             if (TrackList.size() == 0) {

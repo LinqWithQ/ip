@@ -12,7 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import qlin.Qlin;
 
-
+/**
+ * The root node of javafx.
+ */
 public class Main extends Application {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/HimmelScared.png"));
@@ -74,6 +76,10 @@ public class Main extends Application {
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+        //Greeting
+
+        dialogContainer.getChildren().addAll(new DialogBox(qlin.getGreeting(), qlinImage));
+
         //Handling user input
 
         sendButton.setOnMouseClicked((event) -> {
@@ -95,8 +101,8 @@ public class Main extends Application {
         String userText = userInput.getText();
         String dukeText = qlin.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, userImage),
-                new DialogBox(dukeText, qlinImage)
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getQlinDialog(dukeText, qlinImage)
         );
         userInput.clear();
     }

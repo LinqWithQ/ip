@@ -1,16 +1,27 @@
 package javafx;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * The class that represent the whoel dialog box.
+ */
 public class DialogBox extends HBox {
 
     private Label text;
     private ImageView displayPicture;
 
+    /**
+     * Returns a dialog box object.
+     * @param s The dialog's message.
+     * @param i The dialog's picture.
+     */
     public DialogBox(String s, Image i) {
         text = new Label(s);
         displayPicture = new ImageView(i);
@@ -22,6 +33,26 @@ public class DialogBox extends HBox {
         this.setAlignment(Pos.TOP_RIGHT);
 
         this.getChildren().addAll(text, displayPicture);
+    }
+
+    /**
+     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     */
+    private void flip() {
+        this.setAlignment(Pos.TOP_LEFT);
+        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        FXCollections.reverse(tmp);
+        this.getChildren().setAll(tmp);
+    }
+
+    public static DialogBox getUserDialog(String s, Image i) {
+        return new DialogBox(s, i);
+    }
+
+    public static DialogBox getQlinDialog(String s, Image i) {
+        var db = new DialogBox(s, i);
+        db.flip();
+        return db;
     }
 }
 

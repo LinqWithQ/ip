@@ -10,6 +10,17 @@ import exceptions.QlinException;
 public class Qlin {
 
     private static Boolean isTerminate = false;
+    private static Scanner sc;
+
+    /**
+     * Returns a Qlin object.
+     * This method initialize the chatbot.
+     */
+    public Qlin() {
+        isTerminate = false;
+        sc = new Scanner(System.in);
+        Storage.initialize(sc, isTerminate);
+    }
 
     /**
      * The main method.
@@ -18,7 +29,7 @@ public class Qlin {
      * @param args An empty string.
      */
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        sc = new Scanner(System.in);
         isTerminate = false;
         TrackList.deleteAll();
         Storage.initialize(sc, isTerminate);
@@ -33,7 +44,6 @@ public class Qlin {
                 isTerminate = true;
             }
         }
-        Storage.store();
         sc.close();
     }
 
@@ -45,11 +55,25 @@ public class Qlin {
     }
 
     /**
+     * Returns the greeting.
+     * @return A string object.
+     */
+    public String getGreeting() {
+        return UI.printGreeting();
+    }
+
+    /**
      * Returns a string which is the response of the chatbot.
      * @param input A string object which represent the user's input.
      * @return a string object.
      */
     public String getResponse(String input) {
-        return "";
+        String result;
+        try {
+            result = Processor.process(input);
+        } catch (QlinException e) {
+            result = e.getMessage();
+        }
+        return result;
     }
 }
