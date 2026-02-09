@@ -26,7 +26,9 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/HimmelScared.png"));
     private Image qlinImage = new Image(this.getClass().getResourceAsStream("/images/FrierenCrying.png"));
-
+    /**
+     * Initialize the stage and print the greeting.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

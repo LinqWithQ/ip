@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Scanner;
 
 import exceptions.InvalidDateTimeException;
 import exceptions.InvalidDeadlineException;
@@ -19,6 +18,7 @@ import exceptions.InvalidUnmarkException;
 import exceptions.NoElementException;
 import exceptions.QlinException;
 
+
 /**
  * The class that contain the method for main logic of the chatbot.
  */
@@ -28,17 +28,12 @@ public class Processor {
 
     /**
      * Returns nothing.
-     * Used to pass the scanner to Processor class.
-     * @param sc A Scanner object.
-     * @param isTerminate A boolean object.
-     */
-
-    /**
-     * Returns nothing.
      * The main component of logic.
      * Read the input from CLI with a scanner and perform the command or throws corresponding exceptions.
      * It also calls methods from UI to create responds accordingly.
-     * @throws QlinException The super type for all the exceptions that are thrown by the method.
+     * @param input The string object that represent the user input.
+     * @return A string object that represent the chatbot's output.
+     * @throws QlinException The supertype of all exception objects thrown by this method.
      */
     public static String process(String input) throws QlinException {
         String[] inputs = Parser.breakString(input);
