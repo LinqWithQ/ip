@@ -1,8 +1,8 @@
 package qlin;
 
-import java.util.Scanner;
-
 import exceptions.QlinException;
+
+import java.util.Scanner;
 
 /**
  * The class that represent the Chatbot Qlin.
@@ -58,7 +58,7 @@ public class Qlin {
      * Returns the greeting.
      * @return A string object.
      */
-    public String getGreeting() {
+    public static String getGreeting() {
         return UI.printGreeting();
     }
 
