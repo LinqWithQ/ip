@@ -3,7 +3,7 @@ package exceptions;
 /**
  * The class that represent the invalid input for delete command.
  */
-public class InvalidDeleteException extends QlinException{
+public class InvalidDeleteException extends QlinException {
 
     /**
      * Prints the error message.

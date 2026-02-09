@@ -3,7 +3,7 @@ package exceptions;
 /**
  * The class that represent the invalid input for deleting, finding, listing of an empty task list.
  */
-public class NoElementException extends QlinException{
+public class NoElementException extends QlinException {
 
     /**
      * Prints the error message.

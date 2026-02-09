@@ -16,30 +16,36 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+    private static Scanner sc;
+    private static Boolean isTerminate;
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     /**
      * Reads the qlin.txt and rebuild the arraylist.
+     * Setups the scanner object and isTerminate boolean object.
      * If no such file is found, then create a new file.
      */
-    public static void initialize() {
+    public static void initialize(Scanner sc, Boolean isTerminate) {
+        Storage.sc = sc;
+        Storage.isTerminate = isTerminate;
         if (!Files.exists(Path.of("qlin.txt"))) {
             Path path = Paths.get("qlin.txt");
             try {
                 Files.createFile(path);
             } catch (IOException e) {
                 System.err.println("Could not create file: " + e.getMessage());
+                isTerminate = true;
             }
         } else {
             try {
-                Scanner sc = new Scanner(new File("qlin.txt"));
+                sc = new Scanner(new File("qlin.txt"));
                 while (sc.hasNextLine()) {
                     Storage.addTask(sc.nextLine());
                 }
                 sc.close();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                Qlin.isTerminate = true;
+                isTerminate = true;
             }
         }
     }
@@ -52,30 +58,31 @@ public class Storage {
         String[] strings = Parser.breakString(s);
         Task history;
         switch (strings[0]) {
-            case "task" -> {
-                history = new Task(strings[1]);
-                if (strings[2].equals("1")) {
-                    history.setDone();
-                }
+        case "task" -> {
+            history = new Task(strings[1]);
+            if (strings[2].equals("1")) {
+                history.setDone();
             }
-            case "todo" -> {
-                history = new Todo(strings[1]);
-                if (strings[2].equals("1")) {
-                    history.setDone();
-                }
+        }
+        case "todo" -> {
+            history = new Todo(strings[1]);
+            if (strings[2].equals("1")) {
+                history.setDone();
             }
-            case "deadline" -> {
-                history = new Deadline(strings[1], LocalDateTime.parse(strings[2], FORMATTER));
-                if (strings[3].equals("1")) {
-                    history.setDone();
-                }
+        }
+        case "deadline" -> {
+            history = new Deadline(strings[1], LocalDateTime.parse(strings[2], FORMATTER));
+            if (strings[3].equals("1")) {
+                history.setDone();
             }
-            default -> {
-                history = new Event(strings[1], LocalDateTime.parse(strings[2], FORMATTER), LocalDateTime.parse(strings[3], FORMATTER));
-                if (strings[4].equals("1")) {
-                    history.setDone();
-                }
+        }
+        default -> {
+            history = new Event(strings[1], LocalDateTime.parse(strings[2], FORMATTER),
+                    LocalDateTime.parse(strings[3], FORMATTER));
+            if (strings[4].equals("1")) {
+                history.setDone();
             }
+        }
         }
         TrackList.add(history);
     }
@@ -100,6 +107,7 @@ public class Storage {
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            isTerminate = true;
         }
     }
 }
