@@ -23,7 +23,7 @@ public class Qlin {
     }
 
     /**
-     * The main method.
+     * The main method for CLI.
      * Clears the task list, then rebuild the list from history from qlin.txt.
      * Lastly, stores the list into qlin.txt when isTerminate is true.
      * @param args An empty string.
@@ -31,7 +31,6 @@ public class Qlin {
     public static void main(String[] args) {
         sc = new Scanner(System.in);
         isTerminate = false;
-        TrackList.deleteAll();
         Storage.initialize(sc, isTerminate);
         UI.printGreeting();
         while (!isTerminate) {
@@ -55,7 +54,7 @@ public class Qlin {
     }
 
     /**
-     * Returns the greeting.
+     * Returns and prints the greeting.
      * @return A string object.
      */
     public static String getGreeting() {
@@ -63,7 +62,7 @@ public class Qlin {
     }
 
     /**
-     * Returns a string which is the response of the chatbot.
+     * Returns and prints a string which is the response of the chatbot.
      * @param input A string object which represent the user's input.
      * @return a string object.
      */

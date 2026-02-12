@@ -21,13 +21,15 @@ public class Storage {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     /**
-     * Reads the qlin.txt and rebuild the arraylist.
+     * Clears the tracklist.
+     * Reads the qlin.txt and rebuild the tracklist.
      * Setups the scanner object and isTerminate boolean object.
      * If no such file is found, then create a new file.
      */
     public static void initialize(Scanner sc, Boolean isTerminate) {
         Storage.sc = sc;
         Storage.isTerminate = isTerminate;
+        TrackList.deleteAll();
         if (!Files.exists(Path.of("qlin.txt"))) {
             Path path = Paths.get("qlin.txt");
             try {

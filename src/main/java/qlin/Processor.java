@@ -38,11 +38,17 @@ public class Processor {
         String result = "";
         switch (inputs[0]) {
         case "bye" -> {
+            if (inputs.length != 1) {
+                throw new QlinException("Sry, extra parameters/s detected. Do you mean \"bye\"?");
+            }
             result = UI.printBye();
             Storage.store();
             Qlin.terminate();
         }
         case "list" -> {
+            if (inputs.length != 1) {
+                throw new QlinException("Sry, extra parameters/s detected. Do you mean \"list\"?");
+            }
             if (TrackList.size() == 0) {
                 throw new NoElementException();
             }
@@ -56,7 +62,8 @@ public class Processor {
                 TrackList.add(t);
                 result = UI.printAddTask(t);
             } else {
-                throw new QlinException("Sry, extra parameters/s detected.Pls follow this format: todo /<name>");
+                throw new QlinException("Sry, extra parameters/s detected. Pls follow this format: "
+                        + "todo /<name>");
             }
         }
         case "deadline" -> {
@@ -73,7 +80,7 @@ public class Processor {
                 TrackList.add(t);
                 result = UI.printAddTask(t);
             } else {
-                throw new QlinException("Sry, extra parameters/s detected.Pls follow this format: "
+                throw new QlinException("Sry, extra parameters/s detected. Pls follow this format: "
                         + "deadline /<name> /<deadline datetime>");
             }
         }

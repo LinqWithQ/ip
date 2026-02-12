@@ -21,8 +21,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string in a format that is meant to be shown in the UI
-     * @return Task's string in format for UI
+     * Returns a string in a format that is meant to be shown in the UI.
+     * @return Task's string in format for UI.
      */
     @Override
     public String toString() {
@@ -31,8 +31,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string in a format for storing purpose
-     * @return Task's string in format for qlin.txt
+     * Returns a string in a format for storing purpose.
+     * @return Task's string in format for qlin.txt.
      */
     @Override
     public String toStoreFormat() {
