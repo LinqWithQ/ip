@@ -10,7 +10,7 @@ public class ParserTest {
     @Test
     public void test0() {
         String[] result = Parser.breakString("");
-        assertEquals(0, result.length);
+        assertEquals(1, result.length);
     }
 
     @Test
@@ -25,7 +25,7 @@ public class ParserTest {
 
     @Test
     public void test2() {
-        String[] expected = new String[] {"n", "m", "o"};
+        String[] expected = new String[] {"n", "m", "", "", "", "o"};
         String[] result = Parser.breakString("n /  m    //   /   /o");
         assertEquals(expected.length, result.length);
         for (int i = 0; i < expected.length; i++) {

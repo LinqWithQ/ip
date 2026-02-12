@@ -1,8 +1,8 @@
 package qlin;
 
-import exceptions.QlinException;
-
 import java.util.Scanner;
+
+import exceptions.QlinException;
 
 /**
  * The class that represent the Chatbot Qlin.

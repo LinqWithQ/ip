@@ -9,6 +9,6 @@ public class InvalidTodoException extends QlinException {
      * Returns a InvalidTodoException object.
      */
     public InvalidTodoException() {
-        super("Sry, name of a task cannot be empty.\n" + "Pls follow this format: todo /<index>");
+        super("Sry, name of a task cannot be empty.\n" + "Pls follow this format: todo /<name>");
     }
 }
