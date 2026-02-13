@@ -33,7 +33,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         //Greeting
-        dialogContainer.getChildren().addAll(DialogBox.getQlinDialog(qlin.getGreeting(), qlinImage));
+        dialogContainer.getChildren().addAll(DialogBox.getQlinDialog(qlin.getGreetingString(), qlinImage));
     }
 
     /** Injects the Duke instance */
@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = qlin.getResponse(input);
+        String response = qlin.getResponseString(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getQlinDialog(response, qlinImage)

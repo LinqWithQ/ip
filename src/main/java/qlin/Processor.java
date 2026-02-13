@@ -41,7 +41,7 @@ public class Processor {
             if (inputs.length != 1) {
                 throw new QlinException("Sry, extra parameters/s detected. Do you mean \"bye\"?");
             }
-            result = UI.getByeMessage();
+            result = UI.getByeString();
             Storage.store();
             Qlin.terminate();
         }
@@ -52,7 +52,7 @@ public class Processor {
             if (TrackList.getSize() == 0) {
                 throw new NoElementException();
             }
-            result = UI.getShowTracklistMessage();
+            result = UI.getTracklistContentString();
         }
         case "todo" -> {
             if (inputs.length == 1) {
@@ -60,7 +60,7 @@ public class Processor {
             } else if (inputs.length == 2) {
                 Task t = new Todo(inputs[1]);
                 TrackList.addTask(t);
-                result = UI.getAddTaskMessage(t);
+                result = UI.getAddTaskString(t);
             } else {
                 throw new QlinException("Sry, extra parameters/s detected. Pls follow this format: "
                         + "todo /<name>");
@@ -78,7 +78,7 @@ public class Processor {
                 }
                 Task t = new Deadline(inputs[1], dateTime);
                 TrackList.addTask(t);
-                result = UI.getAddTaskMessage(t);
+                result = UI.getAddTaskString(t);
             } else {
                 throw new QlinException("Sry, extra parameters/s detected. Pls follow this format: "
                         + "deadline /<name> /<deadline datetime>");
@@ -98,7 +98,7 @@ public class Processor {
                 }
                 Task t = new Event(inputs[1], dateTime1, dateTime2);
                 TrackList.addTask(t);
-                result = UI.getAddTaskMessage(t);
+                result = UI.getAddTaskString(t);
             } else {
                 throw new QlinException("Sry, extra parameter/s detected. Pls follow this format: "
                         + "event /<name> /<starting datetime> /<ending datetime>");
@@ -117,7 +117,7 @@ public class Processor {
                 }
                 Task t = TrackList.getTask(index);
                 t.setDone();
-                result = UI.getMarkTaskMessage(t);
+                result = UI.getMarkTaskString(t);
             } else {
                 throw new QlinException("Sry, extra parameter/s detected. Pls follow this format: "
                         + "mark /<index>");
@@ -136,7 +136,7 @@ public class Processor {
                 }
                 Task t = TrackList.getTask(index);
                 t.undone();
-                result = UI.getUnmarkTaskMessage(t);
+                result = UI.getUnmarkTaskString(t);
             } else {
                 throw new QlinException("Sry, extra parameter/s detected. Pls follow this format: "
                         + "unmark /<index>");
@@ -155,7 +155,7 @@ public class Processor {
                 }
                 Task t = TrackList.getTask(index);
                 TrackList.deleteTask(index);
-                result = UI.getDeleteMessage(t);
+                result = UI.getDeleteString(t);
             } else {
                 throw new QlinException("Sry, extra parameter/s detected. Pls follow this format: "
                         + "delete /<index>");
@@ -168,7 +168,7 @@ public class Processor {
                     throw new NoElementException();
                 }
                 List<Task> tasks = TrackList.searchName(inputs[1]);
-                result = UI.getFindMessage(tasks);
+                result = UI.getFindString(tasks);
             } else {
                 throw new QlinException("Sry, extra parameter/s detected. Pls follow this format: "
                         + "find /<search name>");
@@ -178,7 +178,7 @@ public class Processor {
         // special command
         case "delete all" -> {
             TrackList.deleteAll();
-            result = UI.getDeleteAllMessage();
+            result = UI.getDeleteAllString();
         }
         default -> throw new InvalidInputException();
         }

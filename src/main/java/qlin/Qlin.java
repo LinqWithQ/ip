@@ -9,7 +9,7 @@ import exceptions.QlinException;
  */
 public class Qlin {
 
-    private static Boolean isTerminate = false;
+    private static Boolean isTerminate;
     private static Scanner sc;
 
     /**
@@ -24,7 +24,8 @@ public class Qlin {
 
     /**
      * The main method for CLI.
-     * Clears the task list, then rebuild the list from history from qlin.txt.
+     * Start initializing and prints the greeting message.
+     * Starts the run() method;
      * Lastly, stores the list into qlin.txt when isTerminate is true.
      * @param args An empty string.
      */
@@ -32,19 +33,26 @@ public class Qlin {
         sc = new Scanner(System.in);
         isTerminate = false;
         Storage.initialize();
-        UI.printMessage(UI.getGreetingMessage());
+        UI.printMessage(UI.getGreetingString());
         while (!isTerminate) {
-            try {
-                String input = sc.nextLine();
-                String output = Processor.process(input);
-                UI.printMessage(output);
-            } catch (QlinException e) {
-                e.echo();
-            } catch (Exception e) {
-                isTerminate = true;
-            }
+            run();
         }
         sc.close();
+    }
+
+    /**
+     * Runs the reading and processing of the user's input.
+     */
+    private static void run() {
+        try {
+            String input = sc.nextLine();
+            String output = Processor.process(input);
+            UI.printMessage(output);
+        } catch (QlinException e) {
+            UI.printMessage(e.getMessage());
+        } catch (Exception e) {
+            isTerminate = true;
+        }
     }
 
     /**
@@ -55,19 +63,19 @@ public class Qlin {
     }
 
     /**
-     * Returns and prints the greeting.
+     * Returns a string object for greeting.
      * @return A string object.
      */
-    public static String getGreeting() {
-        return UI.getGreetingMessage();
+    public static String getGreetingString() {
+        return UI.getGreetingString();
     }
 
     /**
-     * Returns and prints a string which is the response of the chatbot.
+     * Returns a string which is the response of the chatbot.
      * @param input A string object which represent the user's input.
      * @return a string object.
      */
-    public String getResponse(String input) {
+    public String getResponseString(String input) {
         String result;
         try {
             result = Processor.process(input);
