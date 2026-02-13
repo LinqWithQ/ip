@@ -35,13 +35,13 @@ public class Processor {
      */
     public static String process(String input) throws QlinException {
         String[] inputs = Parser.breakString(input);
-        String result = "";
+        String result;
         switch (inputs[0]) {
         case "bye" -> {
             if (inputs.length != 1) {
                 throw new QlinException("Sry, extra parameters/s detected. Do you mean \"bye\"?");
             }
-            result = UI.printBye();
+            result = UI.getByeMessage();
             Storage.store();
             Qlin.terminate();
         }
@@ -49,18 +49,18 @@ public class Processor {
             if (inputs.length != 1) {
                 throw new QlinException("Sry, extra parameters/s detected. Do you mean \"list\"?");
             }
-            if (TrackList.size() == 0) {
+            if (TrackList.getSize() == 0) {
                 throw new NoElementException();
             }
-            result = UI.printList();
+            result = UI.getShowTracklistMessage();
         }
         case "todo" -> {
             if (inputs.length == 1) {
                 throw new InvalidTodoException();
             } else if (inputs.length == 2) {
                 Task t = new Todo(inputs[1]);
-                TrackList.add(t);
-                result = UI.printAddTask(t);
+                TrackList.addTask(t);
+                result = UI.getAddTaskMessage(t);
             } else {
                 throw new QlinException("Sry, extra parameters/s detected. Pls follow this format: "
                         + "todo /<name>");
@@ -77,8 +77,8 @@ public class Processor {
                     throw new InvalidDateTimeException();
                 }
                 Task t = new Deadline(inputs[1], dateTime);
-                TrackList.add(t);
-                result = UI.printAddTask(t);
+                TrackList.addTask(t);
+                result = UI.getAddTaskMessage(t);
             } else {
                 throw new QlinException("Sry, extra parameters/s detected. Pls follow this format: "
                         + "deadline /<name> /<deadline datetime>");
@@ -97,8 +97,8 @@ public class Processor {
                     throw new InvalidDateTimeException();
                 }
                 Task t = new Event(inputs[1], dateTime1, dateTime2);
-                TrackList.add(t);
-                result = UI.printAddTask(t);
+                TrackList.addTask(t);
+                result = UI.getAddTaskMessage(t);
             } else {
                 throw new QlinException("Sry, extra parameter/s detected. Pls follow this format: "
                         + "event /<name> /<starting datetime> /<ending datetime>");
@@ -108,16 +108,16 @@ public class Processor {
             if (inputs.length == 1) {
                 throw new InvalidMarkException();
             } else if (inputs.length == 2) {
-                if (TrackList.size() == 0) {
+                if (TrackList.getSize() == 0) {
                     throw new NoElementException();
                 }
                 int index = Integer.parseInt(inputs[1]) - 1;
-                if (index >= TrackList.size() || index < 0) {
+                if (index >= TrackList.getSize() || index < 0) {
                     throw new InvalidIndexException();
                 }
-                Task t = TrackList.get(index);
+                Task t = TrackList.getTask(index);
                 t.setDone();
-                result = UI.printMarkTask(t);
+                result = UI.getMarkTaskMessage(t);
             } else {
                 throw new QlinException("Sry, extra parameter/s detected. Pls follow this format: "
                         + "mark /<index>");
@@ -127,16 +127,16 @@ public class Processor {
             if (inputs.length == 1) {
                 throw new InvalidUnmarkException();
             } else if (inputs.length == 2) {
-                if (TrackList.size() == 0) {
+                if (TrackList.getSize() == 0) {
                     throw new NoElementException();
                 }
                 int index = Integer.parseInt(inputs[1]) - 1;
-                if (index >= TrackList.size() || index < 0) {
+                if (index >= TrackList.getSize() || index < 0) {
                     throw new InvalidIndexException();
                 }
-                Task t = TrackList.get(index);
+                Task t = TrackList.getTask(index);
                 t.undone();
-                result = UI.printUnmarkTask(t);
+                result = UI.getUnmarkTaskMessage(t);
             } else {
                 throw new QlinException("Sry, extra parameter/s detected. Pls follow this format: "
                         + "unmark /<index>");
@@ -146,16 +146,16 @@ public class Processor {
             if (inputs.length == 1) {
                 throw new InvalidDeleteException();
             } else if (inputs.length == 2) {
-                if (TrackList.size() == 0) {
+                if (TrackList.getSize() == 0) {
                     throw new NoElementException();
                 }
                 int index = Integer.parseInt(inputs[1]) - 1;
-                if (index >= TrackList.size() || index < 0) {
+                if (index >= TrackList.getSize() || index < 0) {
                     throw new InvalidIndexException();
                 }
-                Task t = TrackList.get(index);
-                TrackList.delete(index);
-                result = UI.printDelete(t);
+                Task t = TrackList.getTask(index);
+                TrackList.deleteTask(index);
+                result = UI.getDeleteMessage(t);
             } else {
                 throw new QlinException("Sry, extra parameter/s detected. Pls follow this format: "
                         + "delete /<index>");
@@ -164,11 +164,11 @@ public class Processor {
             if (inputs.length == 1) {
                 throw new InvalidFindException();
             } else if (inputs.length == 2) {
-                if (TrackList.size() == 0) {
+                if (TrackList.getSize() == 0) {
                     throw new NoElementException();
                 }
                 List<Task> tasks = TrackList.searchName(inputs[1]);
-                result = UI.printFind(tasks);
+                result = UI.getFindMessage(tasks);
             } else {
                 throw new QlinException("Sry, extra parameter/s detected. Pls follow this format: "
                         + "find /<search name>");
@@ -178,7 +178,7 @@ public class Processor {
         // special command
         case "delete all" -> {
             TrackList.deleteAll();
-            result = UI.printDeleteAll();
+            result = UI.getDeleteAllMessage();
         }
         default -> throw new InvalidInputException();
         }

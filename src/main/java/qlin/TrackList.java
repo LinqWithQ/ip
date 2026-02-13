@@ -14,7 +14,7 @@ public class TrackList {
      * Adds a Task object to the container.
      * @param t A Task object.
      */
-    public static void add(Task t) {
+    public static void addTask(Task t) {
         tasks.add(t);
     }
 
@@ -22,7 +22,7 @@ public class TrackList {
      * Deletes a Task object from the container.
      * @param i The index of the Task object to be deleted.
      */
-    public static void delete(int i) {
+    public static void deleteTask(int i) {
         tasks.remove(i);
     }
 
@@ -31,7 +31,7 @@ public class TrackList {
      * @param i The index of the Task object to be returned.
      * @return A Task object.
      */
-    public static Task get(int i) {
+    public static Task getTask(int i) {
         return tasks.get(i);
     }
 
@@ -39,7 +39,7 @@ public class TrackList {
      * Returns the number of Task object in the container.
      * @return An integer.
      */
-    public static int size() {
+    public static int getSize() {
         return tasks.size();
     }
 

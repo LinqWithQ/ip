@@ -15,44 +15,55 @@ import java.util.Scanner;
  * The class that contain methods for creating, reading and writing of history text file, qlin.txt.
  */
 public class Storage {
-
-    private static Scanner sc;
-    private static Boolean isTerminate;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-
     /**
      * Clears the tracklist.
      * Reads the qlin.txt and rebuild the tracklist.
      * Setups the scanner object and isTerminate boolean object.
      * If no such file is found, then create a new file.
      */
-    public static void initialize(Scanner sc, Boolean isTerminate) {
-        Storage.sc = sc;
-        Storage.isTerminate = isTerminate;
+    public static void initialize() {
         TrackList.deleteAll();
         if (!Files.exists(Path.of("qlin.txt"))) {
-            Path path = Paths.get("qlin.txt");
-            try {
-                Files.createFile(path);
-            } catch (IOException e) {
-                System.err.println("Could not create file: " + e.getMessage());
-                isTerminate = true;
-            }
+            createFile(Paths.get("qlin.txt"));
         } else {
-            try {
-                sc = new Scanner(new File("qlin.txt"));
-                while (sc.hasNextLine()) {
-                    Storage.addTask(sc.nextLine());
-                }
-                sc.close();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                isTerminate = true;
-            }
+            rebuildTracklist();
         }
     }
 
     /**
+     * Creates a local file "qlin.txt" for storing data.
+     * Terminates the chatbot if error is detected.
+     * @param path The location of the file.
+     */
+    private static void createFile(Path path) {
+        try {
+            Files.createFile(path);
+        } catch (IOException e) {
+            System.err.println("Could not create file: " + e.getMessage());
+            Qlin.terminate();
+        }
+    }
+
+    /**
+     * Abstract method for rebuilding the TrackList.
+     * Terminates the chatbot if error is detected.
+     */
+    private static void rebuildTracklist() {
+        try {
+            Scanner sc = new Scanner(new File("qlin.txt"));
+            while (sc.hasNextLine()) {
+                Storage.addTask(sc.nextLine());
+            }
+            sc.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            Qlin.terminate();
+        }
+    }
+
+    /**
+     * Concreate method for adding task object into TrackList.
      * Add a single Task object into the arraylist from the history.
      * @param s A Task object's string in the format for storing purpose
      */
@@ -86,11 +97,12 @@ public class Storage {
             }
         }
         }
-        TrackList.add(history);
+        TrackList.addTask(history);
     }
 
     /**
      * Clears the qlin.txt file and the rewrite according to the tasks in the arraylist.
+     * Terminates the chatbot if error is detected.
      */
     public static void store() {
         Path path = Paths.get("qlin.txt");
@@ -109,7 +121,7 @@ public class Storage {
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            isTerminate = true;
+            Qlin.terminate();
         }
     }
 }

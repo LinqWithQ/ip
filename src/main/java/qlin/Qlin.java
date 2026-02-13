@@ -19,7 +19,7 @@ public class Qlin {
     public Qlin() {
         isTerminate = false;
         sc = new Scanner(System.in);
-        Storage.initialize(sc, isTerminate);
+        Storage.initialize();
     }
 
     /**
@@ -31,12 +31,13 @@ public class Qlin {
     public static void main(String[] args) {
         sc = new Scanner(System.in);
         isTerminate = false;
-        Storage.initialize(sc, isTerminate);
-        UI.printGreeting();
+        Storage.initialize();
+        UI.printMessage(UI.getGreetingMessage());
         while (!isTerminate) {
             try {
                 String input = sc.nextLine();
                 String output = Processor.process(input);
+                UI.printMessage(output);
             } catch (QlinException e) {
                 e.echo();
             } catch (Exception e) {
@@ -58,7 +59,7 @@ public class Qlin {
      * @return A string object.
      */
     public static String getGreeting() {
-        return UI.printGreeting();
+        return UI.getGreetingMessage();
     }
 
     /**
