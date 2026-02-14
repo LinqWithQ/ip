@@ -7,24 +7,23 @@ import exceptions.QlinException;
  * The class for checking the validation of the user input.
  */
 public class InputChecker {
-    static final int BYE_PARAMETER = 1;
-    static final int LIST_PARAMETER = 1;
-    static final int TODO_PARAMETER = 2;
-    static final int DEADLINE_PARAMETER = 3;
-    static final int EVENT_PARAMETER = 4;
-    static final int MARK_PARAMETER = 2;
-    static final int UNMARK_PARAMETER = 2;
-    static final int FIND_PARAMETER = 2;
-    static final int DELETE_PARAMETER = 2;
+    private static final int BYE_PARAMETER = 1;
+    private static final int LIST_PARAMETER = 1;
+    private static final int TODO_PARAMETER = 2;
+    private static final int DEADLINE_PARAMETER = 3;
+    private static final int EVENT_PARAMETER = 4;
+    private static final int MARK_PARAMETER = 2;
+    private static final int UNMARK_PARAMETER = 2;
+    private static final int FIND_PARAMETER = 2;
+    private static final int DELETE_PARAMETER = 2;
 
     /**
-     * Returns true if the user input's format is correct.
+     * Returns nothing if the user input's format is correct.
      * DateTime is not check by this method.
      * @param inputs The user's input.
-     * @return True if the inputs is  valid.
-     * @throws QlinException Exception to be thrown.
+     * @throws QlinException Exception to be thrown if the user's input isn't valid.
      */
-    public static boolean check(String[] inputs) throws QlinException {
+    public static void check(String[] inputs) throws QlinException {
         switch (inputs[0]) {
         case "bye" -> check(inputs, inputs[0], BYE_PARAMETER);
         case "list" -> check(inputs, inputs[0], LIST_PARAMETER);
@@ -35,9 +34,11 @@ public class InputChecker {
         case "unmark" -> check(inputs, inputs[0], UNMARK_PARAMETER);
         case "find" -> check(inputs, inputs[0], FIND_PARAMETER);
         case "delete" -> check(inputs, inputs[0], DELETE_PARAMETER);
+        case "delete all" -> {
+            return; // special command, do nothing.
+        }
         default -> throw new InvalidInputException();
         }
-        return true;
     }
 
     /**
@@ -62,21 +63,21 @@ public class InputChecker {
         switch (commandType) {
         case "bye" -> throw new QlinException("Sry, extra parameters/s detected. Do you mean \"bye\"?");
         case "list" -> throw new QlinException("Sry, extra parameters/s detected. Do you mean \"list\"?");
-        case "todo" -> throw new QlinException("Sry, extra parameters/s detected. Pls follow this format: "
+        case "todo" -> throw new QlinException("Sry, pls follow this format: "
                 + "todo /<name>");
-        case "deadline" -> throw new QlinException("Sry, extra parameters/s detected. Pls follow this format: "
+        case "deadline" -> throw new QlinException("Sry, pls follow this format: "
                 + "deadline /<name> /<deadline datetime>");
-        case "event" -> throw new QlinException("Sry, extra parameter/s detected. Pls follow this format: "
+        case "event" -> throw new QlinException("Sry, pls follow this format: "
                 + "event /<name> /<starting datetime> /<ending datetime>");
-        case "mark" -> throw new QlinException("Sry, extra parameter/s detected. Pls follow this format: "
+        case "mark" -> throw new QlinException("Sry, pls follow this format: "
                 + "mark /<index>");
-        case "unmark" -> throw new QlinException("Sry, extra parameter/s detected. Pls follow this format: "
+        case "unmark" -> throw new QlinException("Sry, pls follow this format: "
                 + "unmark /<index>");
-        case "find" -> throw new QlinException("Sry, extra parameter/s detected. Pls follow this format: "
+        case "find" -> throw new QlinException("Sry, pls follow this format: "
                 + "delete /<index>");
-        case "delete" -> throw new QlinException("Sry, extra parameter/s detected. Pls follow this format: "
+        case "delete" -> throw new QlinException("Sry, pls follow this format: "
                 + "find /<search name>");
-        default -> throw new QlinException("Unknown error");
+        default -> throw new QlinException("Unknown error"); // should not reach here
         }
     }
 }
