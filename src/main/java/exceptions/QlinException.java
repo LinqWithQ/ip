@@ -6,7 +6,7 @@ package exceptions;
  */
 public class QlinException extends Exception {
 
-    private String message;
+    private final String message;
 
     /**
      * Returns a QlinException objects.

@@ -30,8 +30,8 @@ public class Processor {
         InputChecker.check(inputs);
         String result;
         switch (inputs[0]) {
-        case "bye" -> result = processBye(inputs);
-        case "list" -> result = processList(inputs);
+        case "bye" -> result = processBye();
+        case "list" -> result = processList();
         case "todo" -> result = processTodo(inputs);
         case "deadline" -> result = processDeadline(inputs);
         case "event" -> result = processEvent(inputs);
@@ -51,22 +51,19 @@ public class Processor {
 
     /**
      * Returns a message for bye command.
-     * @param inputs Parsed user input.
      * @return The string object to be shown.
-     * @throws QlinException The super type of all exceptions class for QLin.
      */
-    private static String processBye(String[] inputs) throws QlinException {
+    private static String processBye() {
         Qlin.terminate();
         return UI.getByeString();
     }
 
     /**
      * Returns a message for list command.
-     * @param inputs Parsed user input.
      * @return The string object to be shown.
      * @throws QlinException The super type of all exceptions class for QLin.
      */
-    private static String processList(String[] inputs) throws QlinException {
+    private static String processList() throws QlinException {
         if (TrackList.getSize() == 0) {
             throw new NoElementException();
         }
@@ -158,7 +155,7 @@ public class Processor {
         }
         Task t = TrackList.getTask(index);
         t.undone();
-        return UI.getMarkTaskString(t);
+        return UI.getUnmarkTaskString(t);
     }
 
     /**
