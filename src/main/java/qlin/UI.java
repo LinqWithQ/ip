@@ -12,6 +12,7 @@ public class UI {
      * @param message The message to be printed.
      */
     public static void printMessage(String message) {
+        assert !message.isEmpty() : "message shouldn't be empty";
         System.out.println(message);
     }
 

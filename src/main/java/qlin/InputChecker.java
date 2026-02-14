@@ -23,7 +23,9 @@ public class InputChecker {
      * @param inputs The user's input.
      * @throws QlinException Exception to be thrown if the user's input isn't valid.
      */
-    public static void check(String[] inputs) throws QlinException {
+    public static void checkCommand(String[] inputs) throws QlinException {
+        assert inputs.length != 0 : "the array shouldn't be empty";
+        checkEmpty(inputs);
         switch (inputs[0]) {
         case "bye" -> check(inputs, inputs[0], BYE_PARAMETER);
         case "list" -> check(inputs, inputs[0], LIST_PARAMETER);
@@ -38,6 +40,18 @@ public class InputChecker {
             return; // special command, do nothing.
         }
         default -> throw new InvalidInputException();
+        }
+    }
+    /**
+     * Check if there is any empty string in the string array.
+     * @param inputs The user's input in the form of String[].
+     * @throws QlinException Exception thrown if empty string is found.
+     */
+    private static void checkEmpty(String[] inputs) throws QlinException {
+        for (String s: inputs) {
+            if (s.isEmpty()) {
+                throw new QlinException("Sry, empty argument detected, pls try again.");
+            }
         }
     }
 
@@ -77,7 +91,11 @@ public class InputChecker {
                 + "delete /<index>");
         case "delete" -> throw new QlinException("Sry, pls follow this format: "
                 + "find /<search name>");
-        default -> throw new QlinException("Unknown error"); // should not reach here
+        default -> {
+            assert false : "shouldn't have reach here";
+            Qlin.terminate();
+            throw new QlinException("Unknown error occurred: error position InputChecker.java");
+        }
         }
     }
 }
