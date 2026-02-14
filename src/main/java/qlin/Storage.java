@@ -24,8 +24,9 @@ public class Storage {
      */
     public static void initialize() {
         TrackList.deleteAll();
-        if (!Files.exists(Path.of("qlin.txt"))) {
-            createFile(Paths.get("qlin.txt"));
+        Path path = Path.of("qlin.txt");
+        if (!Files.exists(path)) {
+            createFile(path);
         } else {
             rebuildTracklist();
         }
@@ -68,7 +69,7 @@ public class Storage {
      * @param s A Task object's string in the format for storing purpose
      */
     private static void addTask(String s) {
-        String[] strings = Parser.breakString(s);
+        String[] strings = Parser.parse(s);
         Task history;
         switch (strings[0]) {
         case "task" -> {
