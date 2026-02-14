@@ -21,7 +21,6 @@ public class Qlin {
     }
 
     /**
-     * The main method for CLI.
      * Start initializing and runs the run() method.
      * @param args An empty string.
      */

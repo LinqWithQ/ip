@@ -64,7 +64,6 @@ public class Storage {
     }
 
     /**
-     * Concreate method for adding task object into TrackList.
      * Add a single Task object into the arraylist from the history.
      * @param s A Task object's string in the format for storing purpose
      */
