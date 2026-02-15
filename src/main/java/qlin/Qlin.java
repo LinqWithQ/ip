@@ -57,6 +57,14 @@ public class Qlin {
     }
 
     /**
+     * Returns the current status of the chatbot.
+     * @return boolean isTerminate.
+     */
+    public boolean getStatus() {
+        return isTerminate;
+    }
+
+    /**
      * Terminates the chatbot and stores the data.
      */
     public static void terminate() {
@@ -88,6 +96,6 @@ public class Qlin {
             }
             return result;
         }
-        return "";
+        return null;
     }
 }
