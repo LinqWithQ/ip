@@ -6,19 +6,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import qlin.Qlin;
 
 /**
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
+    private static Stage stage;
     @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-
     private Qlin qlin;
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/HimmelScared.png"));
@@ -30,7 +31,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         //Greeting
-        dialogContainer.getChildren().addAll(DialogBox.getQlinDialog(qlin.getGreetingString(), qlinImage));
+        dialogContainer.getChildren().addAll(DialogBox.getQlinDialog(Qlin.getGreetingString(), qlinImage));
     }
 
     /** Injects the Duke instance */
@@ -46,11 +47,28 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = qlin.getResponseString(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getQlinDialog(response, qlinImage)
-        );
+        if (response != null) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getQlinDialog(response, qlinImage)
+            );
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage)
+            );
+        }
         userInput.clear();
+        if (qlin.getStatus()) {
+            stage.close();
+        }
+    }
+
+    /**
+     * Store the stage to access the close() method.
+     * @param stage The stage opened.
+     */
+    public static void setStage(Stage stage) {
+        MainWindow.stage = stage;
     }
 }
 

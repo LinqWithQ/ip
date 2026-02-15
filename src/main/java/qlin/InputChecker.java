@@ -70,7 +70,7 @@ public class InputChecker {
 
     /**
      * Throws the right exception with the right message.
-     * @param commandType The command from the user input.
+     * @param commandType The command type from the user input.
      * @throws QlinException The exception that carries the message.
      */
     private static void getQlinException(String commandType) throws QlinException {

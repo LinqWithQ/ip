@@ -1,7 +1,6 @@
 package qlin;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,7 +18,6 @@ public class Storage {
     /**
      * Clears the tracklist.
      * Reads the qlin.txt and rebuild the tracklist.
-     * Setups the scanner object and isTerminate boolean object.
      * If no such file is found, then create a new file.
      */
     public static void initialize() {
@@ -28,14 +26,13 @@ public class Storage {
         if (!Files.exists(path)) {
             createFile(path);
         } else {
-            rebuildTracklist();
+            rebuildTracklist(path);
         }
     }
-
     /**
      * Creates a local file "qlin.txt" for storing data.
      * Terminates the chatbot if error is detected.
-     * @param path The location of the file.
+     * @param path The file's path.
      */
     private static void createFile(Path path) {
         try {
@@ -47,12 +44,13 @@ public class Storage {
     }
 
     /**
-     * Abstract method for rebuilding the TrackList.
-     * Terminates the chatbot if error is detected.
+     * Creates a new scanner object to read the file.
+     * Reads the file and adds the task object one by one through calling addTask() method.
+     * @param path The file's path.
      */
-    private static void rebuildTracklist() {
+    private static void rebuildTracklist(Path path) {
         try {
-            Scanner sc = new Scanner(new File("qlin.txt"));
+            Scanner sc = new Scanner(path);
             while (sc.hasNextLine()) {
                 Storage.addTask(sc.nextLine());
             }
@@ -62,44 +60,62 @@ public class Storage {
             Qlin.terminate();
         }
     }
-
     /**
      * Add a single Task object into the arraylist from the history.
-     * @param s A Task object's string in the format for storing purpose
+     * @param data A Task object's string in the format for storing purpose
      */
-    private static void addTask(String s) {
-        String[] strings = Parser.parse(s);
+    private static void addTask(String data) {
+        String[] strings = Parser.parse(data);
         Task history;
         switch (strings[0]) {
-        case "task" -> {
-            history = new Task(strings[1]);
-            if (strings[2].equals("1")) {
-                history.setDone();
-            }
-        }
-        case "todo" -> {
-            history = new Todo(strings[1]);
-            if (strings[2].equals("1")) {
-                history.setDone();
-            }
-        }
-        case "deadline" -> {
-            history = new Deadline(strings[1], LocalDateTime.parse(strings[2], FORMATTER));
-            if (strings[3].equals("1")) {
-                history.setDone();
-            }
-        }
+        case "todo" -> history = addTodo(strings);
+        case "deadline" -> history = addDeadline(strings);
+        case "event" -> history = addEvent(strings);
         default -> {
-            history = new Event(strings[1], LocalDateTime.parse(strings[2], FORMATTER),
-                    LocalDateTime.parse(strings[3], FORMATTER));
-            if (strings[4].equals("1")) {
-                history.setDone();
-            }
+            assert false : "shouldn't have reach here, error position: Storage.java";
+            Qlin.terminate();
+            return;
         }
         }
         TrackList.addTask(history);
     }
-
+    /**
+     * Return a todo object that's to be added to the tracklist.
+     * @param datas The string data from the qlin.txt.
+     * @return The task object to be added.
+     */
+    private static Task addTodo(String[] datas) {
+        Task history = new Todo(datas[1]);
+        if (datas[2].equals("1")) {
+            history.setDone();
+        }
+        return history;
+    }
+    /**
+     * Return a deadline object that's to be added to the tracklist.
+     * @param datas The string data from the qlin.txt.
+     * @return The task object to be added.
+     */
+    private static Deadline addDeadline(String[] datas) {
+        Deadline history = new Deadline(datas[1], LocalDateTime.parse(datas[2], FORMATTER));
+        if (datas[3].equals("1")) {
+            history.setDone();
+        }
+        return history;
+    }
+    /**
+     * Return an event object that's to be added to the tracklist.
+     * @param datas The string data from the qlin.txt.
+     * @return The task object to be added.
+     */
+    private static Event addEvent(String[] datas) {
+        Event history = new Event(datas[1], LocalDateTime.parse(datas[2], FORMATTER),
+                LocalDateTime.parse(datas[3], FORMATTER));
+        if (datas[4].equals("1")) {
+            history.setDone();
+        }
+        return history;
+    }
     /**
      * Clears the qlin.txt file and the rewrite according to the tasks in the arraylist.
      * Terminates the chatbot if error is detected.

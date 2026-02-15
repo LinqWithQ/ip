@@ -57,6 +57,14 @@ public class Qlin {
     }
 
     /**
+     * Returns the current status of the chatbot.
+     * @return boolean isTerminate.
+     */
+    public boolean getStatus() {
+        return isTerminate;
+    }
+
+    /**
      * Terminates the chatbot and stores the data.
      */
     public static void terminate() {
@@ -79,12 +87,15 @@ public class Qlin {
      * @return a string object.
      */
     public String getResponseString(String input) {
-        String result;
-        try {
-            result = Processor.process(input);
-        } catch (QlinException e) {
-            result = e.getMessage();
+        if (!isTerminate) {
+            String result;
+            try {
+                result = Processor.process(input);
+            } catch (QlinException e) {
+                result = e.getMessage();
+            }
+            return result;
         }
-        return result;
+        return null;
     }
 }
