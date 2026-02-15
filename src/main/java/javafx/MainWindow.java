@@ -1,7 +1,6 @@
 package javafx;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -19,13 +18,11 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Qlin qlin;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/HimmelScared.png"));
-    private Image qlinImage = new Image(this.getClass().getResourceAsStream("/images/FrierenCrying.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/HimmelScared.png"));
+    private final Image qlinImage = new Image(this.getClass().getResourceAsStream("/images/FrierenCrying.png"));
     /**
      * Initialize the stage and print the greeting.
      */

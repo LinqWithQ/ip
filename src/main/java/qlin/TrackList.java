@@ -23,6 +23,7 @@ public class TrackList {
      * @param i The index of the Task object to be deleted.
      */
     public static void deleteTask(int i) {
+        assert i >= 0 && i < tasks.size() : "index isn't valid";
         tasks.remove(i);
     }
 
@@ -32,6 +33,7 @@ public class TrackList {
      * @return A Task object.
      */
     public static Task getTask(int i) {
+        assert i >= 0 && i < tasks.size() : "index isn't valid";
         return tasks.get(i);
     }
 
@@ -64,6 +66,7 @@ public class TrackList {
      * @return A list.
      */
     public static List<Task> searchName(String name) {
+        assert !name.isEmpty() : "search name shouldn't be empty";
         List<Task> result = new ArrayList<>();
         for (Task t: tasks) {
             if (t.getName().contains(name)) {

@@ -10,38 +10,39 @@ public class Task {
 
     /**
      * Returns a Task object.
-     * @param n The task's name.
+     * @param name The task's name.
      */
-    public Task(String n) {
+    public Task(String name) {
+        assert !name.isEmpty() : "name shouldn't be empty";
         this.isDone = false;
-        this.taskName = n;
+        this.taskName = name;
     }
 
     /**
-     * Sets current task to done
+     * Sets current task to done.
      */
     public void setDone() {
         this.isDone = true;
     }
 
     /**
-     * Sets current task to not done
+     * Sets current task to not done.
      */
     public void undone() {
         this.isDone = false;
     }
 
     /**
-     * Return the current task's name
-     * @return Task's name
+     * Return the current task's name.
+     * @return Task's name.
      */
     public String getName() {
         return this.taskName;
     }
 
     /**
-     * Returns a string in a format that is meant to be shown in the UI
-     * @return Task's string in format for UI
+     * Returns a string in a format that is meant to be shown in the UI.
+     * @return Task's string in format for UI.
      */
     @Override
     public String toString() {
@@ -53,8 +54,8 @@ public class Task {
     }
 
     /**
-     * Returns a string in a format for storing purpose
-     * @return Task's string in format for qlin.txt
+     * Returns a string in a format for storing purpose.
+     * @return Task's string in format for qlin.txt.
      */
     public String toStoreFormat() {
         if (this.isDone) {

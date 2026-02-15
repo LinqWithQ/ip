@@ -5,7 +5,7 @@ import java.util.Scanner;
 import exceptions.QlinException;
 
 /**
- * The class that represent the Chatbot Qlin.
+ * The class that represent the chatbot Qlin.
  */
 public class Qlin {
 
@@ -14,32 +14,32 @@ public class Qlin {
 
     /**
      * Returns a Qlin object.
-     * This method initialize the chatbot.
+     * This method initializes the chatbot.
      */
     public Qlin() {
-        isTerminate = false;
-        sc = new Scanner(System.in);
-        Storage.initialize();
+        initialize();
     }
 
     /**
-     * The main method for CLI.
-     * Start initializing and prints the greeting message.
-     * Starts the run() method;
-     * Lastly, stores the list into qlin.txt when isTerminate is true.
+     * Start initializing and runs the run() method.
      * @param args An empty string.
      */
     public static void main(String[] args) {
-        sc = new Scanner(System.in);
-        isTerminate = false;
-        Storage.initialize();
+        initialize();
         UI.printMessage(UI.getGreetingString());
         while (!isTerminate) {
             run();
         }
-        sc.close();
     }
 
+    /**
+     * Initialize the chatbot and prints the greeting message.
+     */
+    private static void initialize() {
+        sc = new Scanner(System.in);
+        isTerminate = false;
+        Storage.initialize();
+    }
     /**
      * Runs the reading and processing of the user's input.
      */
@@ -51,15 +51,18 @@ public class Qlin {
         } catch (QlinException e) {
             UI.printMessage(e.getMessage());
         } catch (Exception e) {
+            UI.printMessage(e.getMessage());
             isTerminate = true;
         }
     }
 
     /**
-     * Terminates the chatbot.
+     * Terminates the chatbot and stores the data.
      */
     public static void terminate() {
         Qlin.isTerminate = true;
+        Storage.store();
+        sc.close();
     }
 
     /**

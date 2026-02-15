@@ -6,7 +6,7 @@ package exceptions;
  */
 public class QlinException extends Exception {
 
-    private String message;
+    private final String message;
 
     /**
      * Returns a QlinException objects.
@@ -16,22 +16,8 @@ public class QlinException extends Exception {
         super();
         this.message = message;
     }
-
-    /**
-     * Overloaded constructor to be used by subtypes.
-     */
-    public QlinException() {
-        super();
-    }
-
+    @Override
     public String getMessage() {
         return this.message;
-    }
-
-    /**
-     * Prints the error message.
-     */
-    public void echo() {
-        System.out.println(this.message);
     }
 }

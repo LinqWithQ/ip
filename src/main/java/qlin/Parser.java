@@ -14,7 +14,7 @@ public class Parser {
      * @param s A string
      * @return An array of Strings
      */
-    public static String[] breakString(String s) {
+    public static String[] parse(String s) {
         s = "/" + s; // special adjustment
         HashMap<Integer, Integer> hashmap = new HashMap<>();
         int count = 0;

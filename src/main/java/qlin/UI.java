@@ -9,15 +9,16 @@ public class UI {
 
     /**
      * Prints the given message.
-     * @param message A string object.
+     * @param message The message to be printed.
      */
     public static void printMessage(String message) {
+        assert !message.isEmpty() : "message shouldn't be empty";
         System.out.println(message);
     }
 
     /**
      * Returns the greeting message.
-     * @return a string object.
+     * @return the message to be shown.
      */
     public static String getGreetingString() {
         return "Hello! I'm Qlin.\n"
@@ -26,7 +27,7 @@ public class UI {
 
     /**
      * Returns the goodbye message.
-     * @return a string object.
+     * @return the message to be shown.
      */
     public static String getByeString() {
         return "Goodbye, hope to not see you again!";
@@ -34,7 +35,7 @@ public class UI {
 
     /**
      * Returns a string object that shows all tasks.
-     * @return a string object.
+     * @return the message to be shown.
      */
     public static String getTracklistContentString() {
         StringBuilder result = new StringBuilder("Here are the tasks in your list:");
@@ -46,8 +47,8 @@ public class UI {
 
     /**
      * Returns a string object that indicates the marking of a task.
-     * @param t A Task object.
-     * @return a string object.
+     * @param t The current task object.
+     * @return the message to be shown.
      */
     public static String getMarkTaskString(Task t) {
         return "Nice! I've marked this task as done:\n"
@@ -56,8 +57,8 @@ public class UI {
 
     /**
      * Returns a string object that indicates the unmarking of a task.
-     * @param t A Task object.
-     * @return a string object.
+     * @param t The current task object.
+     * @return the message to be shown.
      */
     public static String getUnmarkTaskString(Task t) {
         return "OK, I've marked this task as not done yet:\n"
@@ -66,8 +67,8 @@ public class UI {
 
     /**
      * Returns a string object that indicates the adding of a task.
-     * @param t A Task object.
-     * @return a string object.
+     * @param t The current task object.
+     * @return the message to be shown.
      */
     public static String getAddTaskString(Task t) {
         return "Got it. I've added this task:\n"
@@ -77,8 +78,8 @@ public class UI {
 
     /**
      * Returns a string object that indicates the deleting of a task.
-     * @param t A Task object.
-     * @return a string object.
+     * @param t The current task object.
+     * @return the message to be shown.
      */
     public static String getDeleteString(Task t) {
         return "Noted. I've removed this task:\n"
@@ -89,7 +90,7 @@ public class UI {
     /**
      * Returns a string object that indicates the tasks in the list.
      * @param tasks A list that contains the tasks to be printed.
-     * @return a string object.
+     * @return the message to be shown.
      */
     public static String getFindString(List<Task> tasks) {
         StringBuilder result;
@@ -106,7 +107,7 @@ public class UI {
 
     /**
      * Returns a string object that indicates the deleting of all task.
-     * @return a string object.
+     * @return the message to be shown.
      */
     public static String getDeleteAllString() {
         return "Ok, all tasks had been deleted.";
