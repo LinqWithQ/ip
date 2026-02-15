@@ -79,12 +79,15 @@ public class Qlin {
      * @return a string object.
      */
     public String getResponseString(String input) {
-        String result;
-        try {
-            result = Processor.process(input);
-        } catch (QlinException e) {
-            result = e.getMessage();
+        if (!isTerminate) {
+            String result;
+            try {
+                result = Processor.process(input);
+            } catch (QlinException e) {
+                result = e.getMessage();
+            }
+            return result;
         }
-        return result;
+        return "";
     }
 }
