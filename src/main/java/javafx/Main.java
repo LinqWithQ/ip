@@ -14,7 +14,7 @@ import qlin.Qlin;
  */
 public class Main extends Application {
 
-    private Qlin qlin = new Qlin();
+    private final Qlin qlin = new Qlin();
     @Override
     public void start(Stage stage) {
         try {
