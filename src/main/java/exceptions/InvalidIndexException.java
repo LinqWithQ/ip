@@ -11,6 +11,6 @@ public class InvalidIndexException extends QlinException {
      * Returns a InvalidIndexException object.
      */
     public InvalidIndexException() {
-        super("Sry, pls try again with a valid index ranged [1, " + (TrackList.getSize() - 1) + "].");
+        super("Sry, pls try again with a valid index ranged [1, " + TrackList.getSize() + "].");
     }
 }

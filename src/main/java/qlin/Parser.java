@@ -36,4 +36,13 @@ public class Parser {
         result[count - 1] = sub;
         return result;
     }
+
+    /**
+     * Returns an array of strings by splitting a string by whitespace.
+     * @param input User's input string.
+     * @return An array of input parameters.
+     */
+    public static String[] parseBySpace(String input) {
+        return input.split("\\s+");
+    }
 }

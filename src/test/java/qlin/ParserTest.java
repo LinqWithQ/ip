@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-
 public class ParserTest {
 
     @Test
@@ -29,6 +28,17 @@ public class ParserTest {
         String[] result = Parser.parse("n /  m    //   /   /o");
         assertEquals(expected.length, result.length);
         for (int i = 0; i < expected.length; i++) {
+            assertEquals(result[i], expected[i]);
+        }
+    }
+
+    @Test
+    public void test3() {
+        String[] expected = new String[] {"a", "b", "c"};
+        String input = "a b  c";
+        String[] result = Parser.parseBySpace(input);
+        assertEquals(result.length, expected.length);
+        for (int i = 0; i < result.length; i++) {
             assertEquals(result[i], expected[i]);
         }
     }

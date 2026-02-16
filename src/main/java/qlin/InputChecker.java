@@ -36,7 +36,7 @@ public class InputChecker {
         case "unmark" -> check(inputs, inputs[0], UNMARK_PARAMETER);
         case "find" -> check(inputs, inputs[0], FIND_PARAMETER);
         case "delete" -> check(inputs, inputs[0], DELETE_PARAMETER);
-        case "delete all" -> {
+        case "deleteAll" -> {
             return; // special command, do nothing.
         }
         default -> throw new InvalidInputException();
@@ -78,21 +78,21 @@ public class InputChecker {
         case "bye" -> throw new QlinException("Sry, extra parameters/s detected. Do you mean \"bye\"?");
         case "list" -> throw new QlinException("Sry, extra parameters/s detected. Do you mean \"list\"?");
         case "todo" -> throw new QlinException("Sry, pls follow this format: "
-                + "todo /<name>");
+                + "todo <name>");
         case "deadline" -> throw new QlinException("Sry, pls follow this format: "
-                + "deadline /<name> /<deadline datetime>");
+                + "deadline <name> <deadline datetime>");
         case "event" -> throw new QlinException("Sry, pls follow this format: "
-                + "event /<name> /<starting datetime> /<ending datetime>");
+                + "event <name> <starting datetime> <ending datetime>");
         case "mark" -> throw new QlinException("Sry, pls follow this format: "
-                + "mark /<index>");
+                + "mark <index>");
         case "unmark" -> throw new QlinException("Sry, pls follow this format: "
-                + "unmark /<index>");
+                + "unmark <index>");
         case "find" -> throw new QlinException("Sry, pls follow this format: "
-                + "delete /<index>");
+                + "delete <index>");
         case "delete" -> throw new QlinException("Sry, pls follow this format: "
-                + "find /<search name>");
+                + "find <search name>");
         default -> {
-            assert false : "shouldn't have reach here";
+            assert false : "shouldn't reach here";
             Qlin.terminate();
             throw new QlinException("Unknown error occurred: error position InputChecker.java");
         }

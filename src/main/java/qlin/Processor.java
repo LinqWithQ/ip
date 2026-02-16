@@ -23,7 +23,7 @@ public class Processor {
      * @throws QlinException The supertype of all exception objects thrown by this method.
      */
     public static String process(String input) throws QlinException {
-        String[] inputs = Parser.parse(input);
+        String[] inputs = Parser.parseBySpace(input);
         InputChecker.checkCommand(inputs);
         String result;
         switch (inputs[0]) {
@@ -37,7 +37,7 @@ public class Processor {
         case "delete" -> result = processDelete(inputs);
         case "find" -> result = processFind(inputs);
         // special command
-        case "delete all" -> {
+        case "deleteAll" -> {
             TrackList.deleteAll();
             result = UI.getDeleteAllString();
         }
@@ -124,7 +124,12 @@ public class Processor {
         if (TrackList.getSize() == 0) {
             throw new NoElementException();
         }
-        int index = Integer.parseInt(inputs[1]) - 1;
+        int index;
+        try {
+            index = Integer.parseInt(inputs[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new QlinException("Sry, an integer is expected for second parameter.");
+        }
         if (index >= TrackList.getSize() || index < 0) {
             throw new InvalidIndexException();
         }
@@ -142,7 +147,12 @@ public class Processor {
         if (TrackList.getSize() == 0) {
             throw new NoElementException();
         }
-        int index = Integer.parseInt(inputs[1]) - 1;
+        int index;
+        try {
+            index = Integer.parseInt(inputs[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new QlinException("Sry, an integer is expected for second parameter.");
+        }
         if (index >= TrackList.getSize() || index < 0) {
             throw new InvalidIndexException();
         }
@@ -157,10 +167,15 @@ public class Processor {
      * @throws QlinException The super type of all exceptions class for QLin.
      */
     private static String processDelete(String[] inputs) throws QlinException {
+        int index;
+        try {
+            index = Integer.parseInt(inputs[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new QlinException("Sry, an integer is expected for second parameter.");
+        }
         if (TrackList.getSize() == 0) {
             throw new NoElementException();
         }
-        int index = Integer.parseInt(inputs[1]) - 1;
         if (index >= TrackList.getSize() || index < 0) {
             throw new InvalidIndexException();
         }
