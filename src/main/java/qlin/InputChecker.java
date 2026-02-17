@@ -94,9 +94,9 @@ public class InputChecker {
                 + "mark <index>");
         case "unmark" -> throw new QlinException("Sry, pls follow this format: "
                 + "unmark <index>");
-        case "find" -> throw new QlinException("Sry, pls follow this format: "
-                + "delete <index>");
         case "delete" -> throw new QlinException("Sry, pls follow this format: "
+                + "delete <index>");
+        case "find" -> throw new QlinException("Sry, pls follow this format: "
                 + "find <search name>");
         default -> {
             assert false : "shouldn't reach here";
