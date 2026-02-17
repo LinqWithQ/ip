@@ -109,9 +109,36 @@ public class Storage {
      * @return The task object to be added.
      */
     private static Event addEvent(String[] datas) {
+        if (datas.length == 5) {
+            return addEventWithoutLocation(datas);
+        } else {
+            return addEventWithLocation(datas);
+        }
+    }
+
+    /**
+     * Create an event object without location.
+     * @param datas The string data from the qlin.txt.
+     * @return The task object to be added.
+     */
+    private static Event addEventWithoutLocation(String[] datas) {
         Event history = new Event(datas[1], LocalDateTime.parse(datas[2], FORMATTER),
                 LocalDateTime.parse(datas[3], FORMATTER));
         if (datas[4].equals("1")) {
+            history.setDone();
+        }
+        return history;
+    }
+
+    /**
+     * Create an event object with location.
+     * @param datas The string data from the qlin.txt.
+     * @return The task object to be added.
+     */
+    private static Event addEventWithLocation(String[] datas) {
+        Event history = new Event(datas[1], LocalDateTime.parse(datas[2], FORMATTER),
+                LocalDateTime.parse(datas[3], FORMATTER), datas[4]);
+        if (datas[5].equals("1")) {
             history.setDone();
         }
         return history;

@@ -7,15 +7,15 @@ import exceptions.QlinException;
  * The class for checking the validation of the user input.
  */
 public class InputChecker {
-    private static final int BYE_PARAMETER = 1;
-    private static final int LIST_PARAMETER = 1;
-    private static final int TODO_PARAMETER = 2;
-    private static final int DEADLINE_PARAMETER = 3;
-    private static final int EVENT_PARAMETER = 4;
-    private static final int MARK_PARAMETER = 2;
-    private static final int UNMARK_PARAMETER = 2;
-    private static final int FIND_PARAMETER = 2;
-    private static final int DELETE_PARAMETER = 2;
+    private static final int[] BYE_PARAMETER = new int[] {1};
+    private static final int[] LIST_PARAMETER = new int[] {1};
+    private static final int[] TODO_PARAMETER = new int[] {2};
+    private static final int[] DEADLINE_PARAMETER = new int[] {3};
+    private static final int[] EVENT_PARAMETER = new int[] {4, 5};
+    private static final int[] MARK_PARAMETER = new int[] {2};
+    private static final int[] UNMARK_PARAMETER = new int[] {2};
+    private static final int[] FIND_PARAMETER = new int[] {2};
+    private static final int[] DELETE_PARAMETER = new int[] {2};
 
     /**
      * Returns nothing if the user input's format is correct.
@@ -59,11 +59,17 @@ public class InputChecker {
      * Check if the user input is correct, if no throws a QlinException object.
      * @param inputs The user's input.
      * @param commandType The command from the user input.
-     * @param amount The parameter number required.
+     * @param amounts The array that contains the amount of parameter that the specific command should contain.
      * @throws QlinException Exception to be thrown.
      */
-    private static void check(String[] inputs, String commandType, int amount) throws QlinException {
-        if (inputs.length != amount) {
+    private static void check(String[] inputs, String commandType, int[] amounts) throws QlinException {
+        boolean result = true;
+        for (int amount: amounts) {
+            if (inputs.length == amount) {
+                result = false;
+            }
+        }
+        if (result) {
             getQlinException(commandType);
         }
     }
@@ -82,7 +88,8 @@ public class InputChecker {
         case "deadline" -> throw new QlinException("Sry, pls follow this format: "
                 + "deadline <name> <deadline datetime>");
         case "event" -> throw new QlinException("Sry, pls follow this format: "
-                + "event <name> <starting datetime> <ending datetime>");
+                + "event <name> <starting datetime> <ending datetime>"
+                + "\nor: event <name> <starting datetime> <ending datetime> <location>");
         case "mark" -> throw new QlinException("Sry, pls follow this format: "
                 + "mark <index>");
         case "unmark" -> throw new QlinException("Sry, pls follow this format: "

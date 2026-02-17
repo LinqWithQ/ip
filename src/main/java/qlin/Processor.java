@@ -110,7 +110,12 @@ public class Processor {
         } catch (DateTimeParseException e) {
             throw new InvalidDateTimeException();
         }
-        Task t = new Event(inputs[1], dateTimeStart, dateTimeEnd);
+        Task t;
+        if (inputs.length == 4) {
+            t = new Event(inputs[1], dateTimeStart, dateTimeEnd);
+        } else {
+            t = new Event(inputs[1], dateTimeStart, dateTimeEnd, inputs[4]);
+        }
         TrackList.addTask(t);
         return UI.getAddTaskString(t);
     }
