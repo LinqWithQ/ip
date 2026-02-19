@@ -67,6 +67,7 @@ public class InputChecker {
         for (int amount: amounts) {
             if (inputs.length == amount) {
                 error = false;
+                break;
             }
         }
         if (error) {
