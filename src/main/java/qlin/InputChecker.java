@@ -63,13 +63,13 @@ public class InputChecker {
      * @throws QlinException Exception to be thrown.
      */
     private static void check(String[] inputs, String commandType, int[] amounts) throws QlinException {
-        boolean result = true;
+        boolean error = true;
         for (int amount: amounts) {
             if (inputs.length == amount) {
-                result = false;
+                error = false;
             }
         }
-        if (result) {
+        if (error) {
             getQlinException(commandType);
         }
     }
