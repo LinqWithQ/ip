@@ -1,6 +1,7 @@
 package qlin;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -46,11 +47,11 @@ public class TrackList {
     }
 
     /**
-     * Returns the container.
-     * @return A List object.
+     * Returns an unmodifiable view of the container.
+     * @return A read-only List object.
      */
     public List<Task> getList() {
-        return this.tasks;
+        return Collections.unmodifiableList(this.tasks);
     }
 
     /**
