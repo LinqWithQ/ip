@@ -37,10 +37,14 @@ public class Deadline extends Task {
      */
     @Override
     public String toStoreFormat() {
+        String result;
+        result = "deadline /" + this.taskName
+                + " /" + this.deadlineDate.toString();
         if (this.isDone) {
-            return "deadline /" + this.taskName + " /" + this.deadlineDate.toString() + " /1";
+            result += (" /1");
         } else {
-            return "deadline /" + this.taskName + " /" + this.deadlineDate.toString() + " /0";
+            result += (" /0");
         }
+        return result;
     }
 }

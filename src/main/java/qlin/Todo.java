@@ -7,7 +7,7 @@ public class Todo extends Task {
 
     /**
      * Returns a Todo object.
-     * @param name Todo's name.
+     * @param name The task's name.
      */
     public Todo(String name) {
         super(name);
@@ -28,10 +28,13 @@ public class Todo extends Task {
      */
     @Override
     public String toStoreFormat() {
+        String result;
+        result = "todo /" + this.taskName;
         if (this.isDone) {
-            return "todo /" + this.taskName + " /1";
+            result += (" /1");
         } else {
-            return "todo /" + this.taskName + " /0";
+            result += (" /0");
         }
+        return result;
     }
 }

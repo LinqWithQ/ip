@@ -50,7 +50,7 @@ public class Event extends Task {
                 + beginTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
                 + " to: " + endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
         if (this.location != null) {
-            result += (", at " + this.location);
+            result += (", location: " + this.location);
         }
         result += ")";
         return result;
