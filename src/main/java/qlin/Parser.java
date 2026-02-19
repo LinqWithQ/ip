@@ -9,12 +9,13 @@ public class Parser {
 
     /**
      * Return an array of strings that contain trimmed strings from the input, s.
+     * Currently used for reading history text file.
      * Each string is separated from other string by "/".
      * Example: "a /b /  c" returns {"a", "b", "c"}
      * @param s A string
      * @return An array of Strings
      */
-    public static String[] parse(String s) {
+    public String[] parse(String s) {
         s = "/" + s; // special adjustment
         HashMap<Integer, Integer> hashmap = new HashMap<>();
         int count = 0;
@@ -42,7 +43,7 @@ public class Parser {
      * @param input User's input string.
      * @return An array of input parameters.
      */
-    public static String[] parseBySpace(String input) {
+    public String[] parseBySpace(String input) {
         return input.split("\\s+");
     }
 }

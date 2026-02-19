@@ -9,15 +9,26 @@ import exceptions.QlinException;
  */
 public class Qlin {
 
-    private static Boolean isTerminate;
-    private static Scanner sc;
+    private Boolean isTerminate;
+    private final Scanner sc;
+    private final UI ui;
+    private final Storage storage;
+    private final TrackList trackList;
+    private final Processor processor;
 
     /**
      * Returns a Qlin object.
      * This method initializes the chatbot.
      */
     public Qlin() {
-        initialize();
+        sc = new Scanner(System.in);
+        isTerminate = false;
+        this.trackList = new TrackList();
+        this.ui = new UI(trackList);
+        this.storage = new Storage(trackList, this);
+        this.processor = new Processor(this.trackList, this.ui, this);
+        this.storage.initialize();
+        this.ui.printMessage(this.ui.getGreetingString());
     }
 
     /**
@@ -25,33 +36,23 @@ public class Qlin {
      * @param args An empty string.
      */
     public static void main(String[] args) {
-        initialize();
-        UI.printMessage(UI.getGreetingString());
-        while (!isTerminate) {
-            run();
+        Qlin qlin = new Qlin();
+        while (!qlin.isTerminate) {
+            qlin.run();
         }
-    }
-
-    /**
-     * Initialize the chatbot and prints the greeting message.
-     */
-    private static void initialize() {
-        sc = new Scanner(System.in);
-        isTerminate = false;
-        Storage.initialize();
     }
     /**
      * Runs the reading and processing of the user's input.
      */
-    private static void run() {
+    private void run() {
         try {
             String input = sc.nextLine();
-            String output = Processor.process(input);
-            UI.printMessage(output);
+            String output = this.processor.process(input);
+            this.ui.printMessage(output);
         } catch (QlinException e) {
-            UI.printMessage(e.getMessage());
+            this.ui.printMessage(e.getMessage());
         } catch (Exception e) {
-            UI.printMessage(e.getMessage());
+            this.ui.printMessage(e.getMessage());
             isTerminate = true;
         }
     }
@@ -67,9 +68,9 @@ public class Qlin {
     /**
      * Terminates the chatbot and stores the data.
      */
-    public static void terminate() {
-        Qlin.isTerminate = true;
-        Storage.store();
+    public void terminate() {
+        this.isTerminate = true;
+        this.storage.store();
         sc.close();
     }
 
@@ -77,8 +78,8 @@ public class Qlin {
      * Returns a string object for greeting.
      * @return A string object.
      */
-    public static String getGreetingString() {
-        return UI.getGreetingString();
+    public String getGreetingString() {
+        return this.ui.getGreetingString();
     }
 
     /**
@@ -90,7 +91,7 @@ public class Qlin {
         if (!isTerminate) {
             String result;
             try {
-                result = Processor.process(input);
+                result = this.processor.process(input);
             } catch (QlinException e) {
                 result = e.getMessage();
             }

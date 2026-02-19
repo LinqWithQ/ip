@@ -15,13 +15,26 @@ import java.util.Scanner;
  */
 public class Storage {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+    private final TrackList trackList;
+    private final Qlin qlin;
+    private final Parser parser = new Parser();
+
+    /**
+     * Returns a Storage object.
+     * @param trackList The TrackList object to be accessed.
+     * @param qlin The Qlin object that's using this Storage object.
+     */
+    public Storage(TrackList trackList, Qlin qlin) {
+        this.trackList = trackList;
+        this.qlin = qlin;
+    }
     /**
      * Clears the tracklist.
      * Reads the qlin.txt and rebuild the tracklist.
      * If no such file is found, then create a new file.
      */
-    public static void initialize() {
-        TrackList.deleteAll();
+    public void initialize() {
+        trackList.deleteAll();
         Path path = Path.of("qlin.txt");
         if (!Files.exists(path)) {
             createFile(path);
@@ -34,12 +47,12 @@ public class Storage {
      * Terminates the chatbot if error is detected.
      * @param path The file's path.
      */
-    private static void createFile(Path path) {
+    private void createFile(Path path) {
         try {
             Files.createFile(path);
         } catch (IOException e) {
             System.err.println("Could not create file: " + e.getMessage());
-            Qlin.terminate();
+            this.qlin.terminate();
         }
     }
 
@@ -48,24 +61,24 @@ public class Storage {
      * Reads the file and adds the task object one by one through calling addTask() method.
      * @param path The file's path.
      */
-    private static void rebuildTracklist(Path path) {
+    private void rebuildTracklist(Path path) {
         try {
             Scanner sc = new Scanner(path);
             while (sc.hasNextLine()) {
-                Storage.addTask(sc.nextLine());
+                this.addTask(sc.nextLine());
             }
             sc.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            Qlin.terminate();
+            this.qlin.terminate();
         }
     }
     /**
      * Add a single Task object into the arraylist from the history.
      * @param data A Task object's string in the format for storing purpose
      */
-    private static void addTask(String data) {
-        String[] strings = Parser.parse(data);
+    private void addTask(String data) {
+        String[] strings = this.parser.parse(data);
         Task history;
         switch (strings[0]) {
         case "todo" -> history = addTodo(strings);
@@ -73,18 +86,18 @@ public class Storage {
         case "event" -> history = addEvent(strings);
         default -> {
             assert false : "shouldn't have reach here, error position: Storage.java";
-            Qlin.terminate();
+            this.qlin.terminate();
             return;
         }
         }
-        TrackList.addTask(history);
+        trackList.addTask(history);
     }
     /**
      * Return a todo object that's to be added to the tracklist.
      * @param datas The string data from the qlin.txt.
      * @return The task object to be added.
      */
-    private static Task addTodo(String[] datas) {
+    private Task addTodo(String[] datas) {
         Task history = new Todo(datas[1]);
         if (datas[2].equals("1")) {
             history.setDone();
@@ -96,7 +109,7 @@ public class Storage {
      * @param datas The string data from the qlin.txt.
      * @return The task object to be added.
      */
-    private static Deadline addDeadline(String[] datas) {
+    private Deadline addDeadline(String[] datas) {
         Deadline history = new Deadline(datas[1], LocalDateTime.parse(datas[2], FORMATTER));
         if (datas[3].equals("1")) {
             history.setDone();
@@ -108,7 +121,7 @@ public class Storage {
      * @param datas The string data from the qlin.txt.
      * @return The task object to be added.
      */
-    private static Event addEvent(String[] datas) {
+    private Event addEvent(String[] datas) {
         if (datas.length == 5) {
             return addEventWithoutLocation(datas);
         } else {
@@ -121,7 +134,7 @@ public class Storage {
      * @param datas The string data from the qlin.txt.
      * @return The task object to be added.
      */
-    private static Event addEventWithoutLocation(String[] datas) {
+    private Event addEventWithoutLocation(String[] datas) {
         Event history = new Event(datas[1], LocalDateTime.parse(datas[2], FORMATTER),
                 LocalDateTime.parse(datas[3], FORMATTER));
         if (datas[4].equals("1")) {
@@ -135,7 +148,7 @@ public class Storage {
      * @param datas The string data from the qlin.txt.
      * @return The task object to be added.
      */
-    private static Event addEventWithLocation(String[] datas) {
+    private Event addEventWithLocation(String[] datas) {
         Event history = new Event(datas[1], LocalDateTime.parse(datas[2], FORMATTER),
                 LocalDateTime.parse(datas[3], FORMATTER), datas[4]);
         if (datas[5].equals("1")) {
@@ -147,7 +160,7 @@ public class Storage {
      * Clears the qlin.txt file and the rewrite according to the tasks in the arraylist.
      * Terminates the chatbot if error is detected.
      */
-    public static void store() {
+    public void store() {
         Path path = Paths.get("qlin.txt");
         // clear everything
         try {
@@ -157,14 +170,14 @@ public class Storage {
         }
         // rewrite
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-            for (Task t: TrackList.getList()) {
+            for (Task t: trackList.getList()) {
                 String storeString = t.toStoreFormat();
                 writer.write(storeString);
                 writer.newLine();
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            Qlin.terminate();
+            this.qlin.terminate();
         }
     }
 }

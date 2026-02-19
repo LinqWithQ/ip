@@ -23,7 +23,7 @@ public class InputChecker {
      * @param inputs The user's input.
      * @throws QlinException Exception to be thrown if the user's input isn't valid.
      */
-    public static void checkCommand(String[] inputs) throws QlinException {
+    public void checkCommand(String[] inputs) throws QlinException {
         assert inputs.length != 0 : "the array shouldn't be empty";
         switch (inputs[0]) {
         case "bye" -> check(inputs, BYE_PARAMETER);
@@ -48,7 +48,7 @@ public class InputChecker {
      * @param amounts The array that contains the amount of parameter that the specific command should contain.
      * @throws QlinException Exception to be thrown.
      */
-    private static void check(String[] inputs, int[] amounts) throws QlinException {
+    private void check(String[] inputs, int[] amounts) throws QlinException {
         boolean error = true;
         for (int amount: amounts) {
             if (inputs.length == amount) {
@@ -66,7 +66,7 @@ public class InputChecker {
      * @param commandType The command type from the user input.
      * @throws QlinException The exception that carries the message.
      */
-    private static void getQlinException(String commandType) throws QlinException {
+    private void getQlinException(String commandType) throws QlinException {
         switch (commandType) {
         case "bye" -> throw new QlinException("Sry, extra parameters/s detected. Do you mean \"bye\"?");
         case "list" -> throw new QlinException("Sry, extra parameters/s detected. Do you mean \"list\"?");
@@ -81,13 +81,12 @@ public class InputChecker {
                 + "mark <index>");
         case "unmark" -> throw new QlinException("Sry, pls follow this format: "
                 + "unmark <index>");
-        case "delete" -> throw new QlinException("Sry, pls follow this format: "
-                + "delete <index>");
         case "find" -> throw new QlinException("Sry, pls follow this format: "
                 + "find <search name>");
+        case "delete" -> throw new QlinException("Sry, pls follow this format: "
+                + "delete <index>");
         default -> {
             assert false : "shouldn't reach here";
-            Qlin.terminate();
             throw new QlinException("Unknown error occurred: error position InputChecker.java");
         }
         }

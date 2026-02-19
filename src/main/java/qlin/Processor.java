@@ -16,15 +16,32 @@ import exceptions.QlinException;
  */
 public class Processor {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+    private final TrackList trackList;
+    private final UI ui;
+    private final InputChecker inputChecker = new InputChecker();
+    private final Parser parser = new Parser();
+    private final Qlin qlin;
+
+    /**
+     * Returns a Processor object.
+     * @param trackList The TrackList object to be accessed.
+     * @param ui The UI object to be interacted.
+     * @param qlin The Qlin object that's using this Processor object.
+     */
+    public Processor(TrackList trackList, UI ui, Qlin qlin) {
+        this.trackList = trackList;
+        this.ui = ui;
+        this.qlin = qlin;
+    }
     /**
      * Response accordingly to the input, may either return a string object or throw a QlinException object.
      * @param input The string object that represent the user input.
      * @return A string object that represent the chatbot's output.
      * @throws QlinException The supertype of all exception objects thrown by this method.
      */
-    public static String process(String input) throws QlinException {
-        String[] inputs = Parser.parseBySpace(input);
-        InputChecker.checkCommand(inputs);
+    public String process(String input) throws QlinException {
+        String[] inputs = this.parser.parseBySpace(input);
+        this.inputChecker.checkCommand(inputs);
         String result;
         switch (inputs[0]) {
         case "bye" -> result = processBye();
@@ -38,12 +55,12 @@ public class Processor {
         case "find" -> result = processFind(inputs);
         // special command
         case "deleteAll" -> {
-            TrackList.deleteAll();
-            result = UI.getDeleteAllString();
+            this.trackList.deleteAll();
+            result = this.ui.getDeleteAllString();
         }
         default -> {
             assert false : "shouldn't reach here";
-            Qlin.terminate();
+            this.qlin.terminate();
             throw new QlinException("Unknown error occurred: error position Processor.java");
         }
         }
@@ -53,30 +70,30 @@ public class Processor {
      * Returns a message for bye command.
      * @return The string object to be shown.
      */
-    private static String processBye() {
-        Qlin.terminate();
-        return UI.getByeString();
+    private String processBye() {
+        this.qlin.terminate();
+        return this.ui.getByeString();
     }
     /**
      * Returns a message for list command.
      * @return The string object to be shown.
      * @throws QlinException The super type of all exceptions class for QLin.
      */
-    private static String processList() throws QlinException {
-        if (TrackList.getSize() == 0) {
+    private String processList() throws QlinException {
+        if (this.trackList.getSize() == 0) {
             throw new NoElementException();
         }
-        return UI.getTracklistContentString();
+        return this.ui.getTracklistContentString();
     }
     /**
      * Returns a message for todo command.
      * @param inputs Parsed user input.
      * @return The string object to be shown.
      */
-    private static String processTodo(String[] inputs) {
+    private String processTodo(String[] inputs) {
         Task t = new Todo(inputs[1]);
-        TrackList.addTask(t);
-        return UI.getAddTaskString(t);
+        this.trackList.addTask(t);
+        return this.ui.getAddTaskString(t);
     }
     /**
      * Returns a message for deadline command.
@@ -84,7 +101,7 @@ public class Processor {
      * @return The string object to be shown.
      * @throws QlinException The super type of all exceptions class for QLin.
      */
-    private static String processDeadline(String[] inputs) throws QlinException {
+    private String processDeadline(String[] inputs) throws QlinException {
         LocalDateTime dateTime;
         try {
             dateTime = LocalDateTime.parse(inputs[2], FORMATTER);
@@ -92,8 +109,8 @@ public class Processor {
             throw new InvalidDateTimeException();
         }
         Task t = new Deadline(inputs[1], dateTime);
-        TrackList.addTask(t);
-        return UI.getAddTaskString(t);
+        this.trackList.addTask(t);
+        return this.ui.getAddTaskString(t);
     }
     /**
      * Returns a message for event command.
@@ -101,7 +118,7 @@ public class Processor {
      * @return The string object to be shown.
      * @throws QlinException The super type of all exceptions class for QLin.
      */
-    private static String processEvent(String[] inputs) throws QlinException {
+    private String processEvent(String[] inputs) throws QlinException {
         LocalDateTime dateTimeStart;
         LocalDateTime dateTimeEnd;
         try {
@@ -116,8 +133,8 @@ public class Processor {
         } else {
             t = new Event(inputs[1], dateTimeStart, dateTimeEnd, inputs[4]);
         }
-        TrackList.addTask(t);
-        return UI.getAddTaskString(t);
+        this.trackList.addTask(t);
+        return this.ui.getAddTaskString(t);
     }
     /**
      * Returns a message for mark command.
@@ -125,8 +142,8 @@ public class Processor {
      * @return The string object to be shown.
      * @throws QlinException The super type of all exceptions class for QLin.
      */
-    private static String processMark(String[] inputs) throws QlinException {
-        if (TrackList.getSize() == 0) {
+    private String processMark(String[] inputs) throws QlinException {
+        if (this.trackList.getSize() == 0) {
             throw new NoElementException();
         }
         int index;
@@ -135,12 +152,12 @@ public class Processor {
         } catch (NumberFormatException e) {
             throw new QlinException("Sry, an integer is expected for second parameter.");
         }
-        if (index >= TrackList.getSize() || index < 0) {
-            throw new InvalidIndexException();
+        if (index >= this.trackList.getSize() || index < 0) {
+            throw new InvalidIndexException(this.trackList);
         }
-        Task t = TrackList.getTask(index);
+        Task t = this.trackList.getTask(index);
         t.setDone();
-        return UI.getMarkTaskString(t);
+        return this.ui.getMarkTaskString(t);
     }
     /**
      * Returns a message for unmark command.
@@ -148,8 +165,8 @@ public class Processor {
      * @return The string object to be shown.
      * @throws QlinException The super type of all exceptions class for QLin.
      */
-    private static String processUnmark(String[] inputs) throws QlinException {
-        if (TrackList.getSize() == 0) {
+    private String processUnmark(String[] inputs) throws QlinException {
+        if (this.trackList.getSize() == 0) {
             throw new NoElementException();
         }
         int index;
@@ -158,12 +175,12 @@ public class Processor {
         } catch (NumberFormatException e) {
             throw new QlinException("Sry, an integer is expected for second parameter.");
         }
-        if (index >= TrackList.getSize() || index < 0) {
-            throw new InvalidIndexException();
+        if (index >= this.trackList.getSize() || index < 0) {
+            throw new InvalidIndexException(this.trackList);
         }
-        Task t = TrackList.getTask(index);
+        Task t = this.trackList.getTask(index);
         t.undone();
-        return UI.getUnmarkTaskString(t);
+        return this.ui.getUnmarkTaskString(t);
     }
     /**
      * Returns a message for delete command.
@@ -171,22 +188,22 @@ public class Processor {
      * @return The string object to be shown.
      * @throws QlinException The super type of all exceptions class for QLin.
      */
-    private static String processDelete(String[] inputs) throws QlinException {
+    private String processDelete(String[] inputs) throws QlinException {
         int index;
         try {
             index = Integer.parseInt(inputs[1]) - 1;
         } catch (NumberFormatException e) {
             throw new QlinException("Sry, an integer is expected for second parameter.");
         }
-        if (TrackList.getSize() == 0) {
+        if (this.trackList.getSize() == 0) {
             throw new NoElementException();
         }
-        if (index >= TrackList.getSize() || index < 0) {
-            throw new InvalidIndexException();
+        if (index >= this.trackList.getSize() || index < 0) {
+            throw new InvalidIndexException(this.trackList);
         }
-        Task t = TrackList.getTask(index);
-        TrackList.deleteTask(index);
-        return UI.getDeleteString(t);
+        Task t = this.trackList.getTask(index);
+        this.trackList.deleteTask(index);
+        return this.ui.getDeleteString(t);
     }
     /**
      * Returns a message for find command.
@@ -194,11 +211,11 @@ public class Processor {
      * @return The string object to be shown.
      * @throws QlinException The super type of all exceptions class for QLin.
      */
-    private static String processFind(String[] inputs) throws QlinException {
-        if (TrackList.getSize() == 0) {
+    private String processFind(String[] inputs) throws QlinException {
+        if (this.trackList.getSize() == 0) {
             throw new NoElementException();
         }
-        List<Task> tasks = TrackList.searchName(inputs[1]);
-        return UI.getFindString(tasks);
+        List<Task> tasks = this.trackList.searchName(inputs[1]);
+        return this.ui.getFindString(tasks);
     }
 }
