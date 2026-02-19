@@ -18,51 +18,37 @@ public class InputChecker {
     private static final int[] DELETE_PARAMETER = new int[] {2};
 
     /**
-     * Returns nothing if the user input's format is correct.
+     * Returns nothing if the user input's format is correct, otherwise throws an exception.
      * DateTime is not check by this method.
      * @param inputs The user's input.
      * @throws QlinException Exception to be thrown if the user's input isn't valid.
      */
     public static void checkCommand(String[] inputs) throws QlinException {
         assert inputs.length != 0 : "the array shouldn't be empty";
-        checkEmpty(inputs);
         switch (inputs[0]) {
-        case "bye" -> check(inputs, inputs[0], BYE_PARAMETER);
-        case "list" -> check(inputs, inputs[0], LIST_PARAMETER);
-        case "todo" -> check(inputs, inputs[0], TODO_PARAMETER);
-        case "deadline" -> check(inputs, inputs[0], DEADLINE_PARAMETER);
-        case "event" -> check(inputs, inputs[0], EVENT_PARAMETER);
-        case "mark" -> check(inputs, inputs[0], MARK_PARAMETER);
-        case "unmark" -> check(inputs, inputs[0], UNMARK_PARAMETER);
-        case "find" -> check(inputs, inputs[0], FIND_PARAMETER);
-        case "delete" -> check(inputs, inputs[0], DELETE_PARAMETER);
+        case "bye" -> check(inputs, BYE_PARAMETER);
+        case "list" -> check(inputs, LIST_PARAMETER);
+        case "todo" -> check(inputs, TODO_PARAMETER);
+        case "deadline" -> check(inputs, DEADLINE_PARAMETER);
+        case "event" -> check(inputs, EVENT_PARAMETER);
+        case "mark" -> check(inputs, MARK_PARAMETER);
+        case "unmark" -> check(inputs, UNMARK_PARAMETER);
+        case "find" -> check(inputs, FIND_PARAMETER);
+        case "delete" -> check(inputs, DELETE_PARAMETER);
         case "deleteAll" -> {
             return; // special command, do nothing.
         }
         default -> throw new InvalidInputException();
         }
     }
-    /**
-     * Check if there is any empty string in the string array.
-     * @param inputs The user's input in the form of String[].
-     * @throws QlinException Exception thrown if empty string is found.
-     */
-    private static void checkEmpty(String[] inputs) throws QlinException {
-        for (String s: inputs) {
-            if (s.isEmpty()) {
-                throw new QlinException("Sry, empty argument detected, pls try again.");
-            }
-        }
-    }
 
     /**
      * Check if the user input is correct, if no throws a QlinException object.
-     * @param inputs The user's input.
-     * @param commandType The command from the user input.
+     * @param inputs The parsed user's input.
      * @param amounts The array that contains the amount of parameter that the specific command should contain.
      * @throws QlinException Exception to be thrown.
      */
-    private static void check(String[] inputs, String commandType, int[] amounts) throws QlinException {
+    private static void check(String[] inputs, int[] amounts) throws QlinException {
         boolean error = true;
         for (int amount: amounts) {
             if (inputs.length == amount) {
@@ -71,7 +57,7 @@ public class InputChecker {
             }
         }
         if (error) {
-            getQlinException(commandType);
+            getQlinException(inputs[0]);
         }
     }
 
