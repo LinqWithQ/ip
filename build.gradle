@@ -53,7 +53,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "qlin"
+    archiveBaseName = "Qlin"
     archiveClassifier = null
 }
 
