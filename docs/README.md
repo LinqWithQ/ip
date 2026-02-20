@@ -16,6 +16,8 @@ Task names and locations cannot contain spaces.
 Please use underscores (e.g., Team_meeting) or single words. 
 Date and time must strictly follow the yyyy-MM-dd'T'HH:mm format (e.g., use a T between the date and time).
 
+Please use `bye` command to terminate the chatbot, otherwise the change in the list will not be store.
+
 ### Commands
 
 1. bye (terminates the program and close the GUI window immediately)
@@ -164,6 +166,6 @@ Previous added tasks will be store in a text file, qlin.txt. Upon execution, the
 the list , reconstructing the user's list back to the state before the last termination of the chatbot. If no such file 
 exists, the chatbot will create automatically upon execution.
 
-However, the change of the tasks in the list will only be stored if the user terminates the chatbot through "bye" command. 
-Terminating the chatbot manually will result in loss of data, any creation and operation of the tasks will not be 
-stored.
+However, the change of the tasks in the list will only be stored if the user terminates the chatbot through "bye" 
+command. Terminating the chatbot manually will result in loss of data, any creation and operation on the tasks will 
+not be stored.
