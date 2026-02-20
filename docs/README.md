@@ -146,7 +146,7 @@ Previous added tasks will be store in a text file, qlin.txt. Upon execution, the
 the list , reconstructing the user's list back to the state before the last termination of the chatbot. If no such file 
 exists, the chatbot will create automatically upon execution.
 
-However, the tasks in the list will only be stored if the user terminates the chatbot through "bye" command. 
+However, the change of the tasks in the list will only be stored if the user terminates the chatbot through "bye" command. 
 Terminating the chatbot manually will result in loss of data, any creation and operation of the tasks will not be 
 stored. 
 
