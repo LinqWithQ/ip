@@ -9,7 +9,11 @@ Ensure you have Java installed on your machine. Open your terminal and run the f
 containing the `.jar` file:
 `java -jar qlin.jar`
 
-Important: Task names and locations cannot contain spaces. Please use underscores (e.g., Team_meeting) or single words. 
+### Important
+
+Task names and locations cannot contain spaces. 
+
+Please use underscores (e.g., Team_meeting) or single words. 
 Date and time must strictly follow the yyyy-MM-dd'T'HH:mm format (e.g., use a T between the date and time).
 
 ### Commands
