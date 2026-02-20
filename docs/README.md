@@ -4,12 +4,26 @@
 
 Welcome to my chatbot project, Qlin!
 
-## How to Run
+## Quick start
 Ensure you have Java installed on your machine. Open your terminal and run the following command in the folder 
 containing the `.jar` file:
 `java -jar qlin.jar`
 
-Important: Task names and locations cannot contain spaces. Please use underscores (e.g., Team_meeting) or single words.
+Important: Task names and locations cannot contain spaces. Please use underscores (e.g., Team_meeting) or single words. 
+Date and time must strictly follow the yyyy-MM-dd'T'HH:mm format (e.g., use a T between the date and time).
+
+### Commands
+
+1. bye (terminates the program and close the GUI window immediately)
+2. list (shows the list of added tasks)
+3. todo <name> (add a todo task)
+4. deadline <name> <due datetime> (add a deadline task)
+5. event <name> <starting datetime> <ending datetime> <optional: location>(add an event tasks)
+6. mark <index> (marks a task as done)
+7. unmark <index> (unmarks a task)
+8. delete <index> (delete a task)
+9. find <search name> (search the task by name)
+10. deleteAll (special command, deletes all tasks in the list)
 
 ## Feature: listing
 
@@ -148,17 +162,4 @@ exists, the chatbot will create automatically upon execution.
 
 However, the change of the tasks in the list will only be stored if the user terminates the chatbot through "bye" command. 
 Terminating the chatbot manually will result in loss of data, any creation and operation of the tasks will not be 
-stored. 
-
-### Commands
-
-1. bye (terminates the program and close the GUI window immediately)
-2. list (as above)
-3. todo (as above)
-4. deadline (as above)
-5. event (as above)
-6. mark (as above)
-7. unmark (as above)
-8. delete (as above)
-9. find (as above)
-10. deleteAll (special command, deletes all tasks in the list)
+stored.
