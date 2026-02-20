@@ -43,4 +43,26 @@ public class ParserTest {
             assertEquals(result[i], expected[i]);
         }
     }
+
+    @Test
+    public void test4() {
+        String[] expected = new String[] {"a", "b", "c", "d", "fg"};
+        String input = "a b  c      d fg";
+        String[] result = this.parser.parseBySpace(input);
+        assertEquals(result.length, expected.length);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(result[i], expected[i]);
+        }
+    }
+
+    @Test
+    public void test5() {
+        String[] expected = new String[] {""};
+        String input = "";
+        String[] result = this.parser.parseBySpace(input);
+        assertEquals(result.length, expected.length);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(result[i], expected[i]);
+        }
+    }
 }

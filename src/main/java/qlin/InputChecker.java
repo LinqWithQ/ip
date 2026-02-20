@@ -43,7 +43,7 @@ public class InputChecker {
     }
 
     /**
-     * Check if the user input is correct, if no throws a QlinException object.
+     * Check if the user's input has the correct parameter number, if not throws a QlinException object.
      * @param inputs The parsed user's input.
      * @param amounts The array that contains the amount of parameter that the specific command should contain.
      * @throws QlinException Exception to be thrown.
