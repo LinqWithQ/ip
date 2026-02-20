@@ -1,6 +1,6 @@
 # Qlin User Guide
 
-![Ui.png.png](Ui.png.png)
+!![Ui.png](Ui.png)
 
 Welcome to my chatbot project, Qlin!
 
