@@ -2,6 +2,6 @@ Hello! I'm Qlin.
 What can I do for you?
 Here are the tasks in your list:
 1. [T][ ] 2
-2. [D][X] 3 (by: Nov 11 2011 0000)
-3. [E][ ] wedding (from: Dec 12 2012 2200 to: Dec 13 2012 0000)
+2. [D][X] 3 (due at Nov 11 2011 0000)
+3. [E][ ] wedding (from Dec 12 2012 2200 to Dec 13 2012 0000)
 Goodbye, hope to not see you again!
