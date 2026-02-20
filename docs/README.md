@@ -1,30 +1,164 @@
-# Duke User Guide
+# Qlin User Guide
 
-// Update the title above to match the actual product name
+![img.png](img.png)
 
-// Product screenshot goes here
+Welcome to my chatbot project, Qlin!
 
-// Product intro goes here
+## How to Run
+Ensure you have Java installed on your machine. Open your terminal and run the following command in the folder 
+containing the `.jar` file:
+`java -jar qlin.jar`
 
-## Adding deadlines
+Important: Task names and locations cannot contain spaces. Please use underscores (e.g., Team_meeting) or single words.
 
-// Describe the action and its outcome.
+## Feature: listing
 
-// Give examples of usage
+It will show all the tasks that had been added into the chatbot.
 
-Example: `keyword (optional arguments)`
+Example: `list`
 
-// A description of the expected outcome goes here
+Here is the expected response from the chatbot,
 
 ```
-expected output
+Here are the tasks in your list:
+1. [E][ ] wedding (from Jan 1 2100 0800 to Jan 1 2100 1200)
+2. [E][ ] Himmel's_funeral (from Jan 1 2000 0800 to Jan 1 2000 1200)
 ```
 
-## Feature ABC
+## Feature: adding todos
 
-// Feature details
+It will add a todo task into a list inside the chatbot.
+
+Format: `todo <name>`
+
+Example: `todo homework`
+
+Here is the expected response from the chatbot,
+
+```
+Got it. I've added this task:
+  [T][ ] homework
+Now you have 3 tasks in the list.
+```
+
+## Feature: adding deadlines
+
+It will add a deadline task into a list inside the chatbot.
+
+Format: `deadline <name> <due datetime>`
+
+Note: Date and time must strictly follow the yyyy-MM-dd'T'HH:mm format (e.g., use a T between the date and time).
+
+Example: `deadline homework 2012-12-12T00:00`
+
+Here is the expected response from the chatbot,
+
+```
+Got it. I've added this task:
+  [D][ ] homework (due at Dec 12 2012 0000)
+Now you have 4 tasks in the list.
+```
 
 
-## Feature XYZ
+## Feature: adding events
 
-// Feature details
+It will add an event task into a list inside the chatbot.
+
+Format: `event <name> <starting datetime> <ending datetime>`
+
+Example: `event Himmel's_departure 1950-01-01T10:00 1950-01-01T12:00`
+
+Optional parameter: location
+
+Format: `event <name> <starting datetime> <ending datetime> <location>`
+
+Example: `event Himmel's_departure 1950-01-01T10:00 1950-01-01T12:00 Capital_City`
+
+Here is the expected response from the chatbot,
+
+```
+Got it. I've added this task:
+  [E][ ] Himmel's_depature (from Jan 1 1950 1000 to Jan 1 1950 1200, location: Capital_City)
+Now you have 5 tasks in the list.
+```
+
+## Feature: marking and unmarking task
+
+It will mark or unmark a task.
+
+Format:
+```
+mark <index>
+unmark <index>
+```
+
+Example:
+```
+mark 1
+unmark 1
+```
+
+Expected response for marking,
+```
+Nice! I have marked this task as done:
+ [E][X] wedding (from Jan 1 2100 0800 to Jan 1 2100 1200)
+```
+
+Expected response for unmarking,
+```
+OK, I've marked this task as not done yet:
+ [E][ ] wedding (from Jan 1 2100 0800 to Jan 1 2100 1200)
+```
+
+## Feature: deleting task
+
+It will delete a task from the list.
+
+Format: `delete <index>`
+
+Example: `delete 1`
+
+Here is the expected response from the chatbot,
+```
+Noted. I've deleted this task:
+ [E][ ] wedding (from Jan 1 2100 0800 to Jan 1 2100 1200)
+Now you have 4 tasks in the list.
+```
+
+## Feature: finding task by name
+
+It will search the list using the user's input and returns a list of tasks with the same partial name.
+
+Format: `find <search name>`
+
+Example: `find home`
+
+Here is the expected response from the chatbot,
+```
+Here are the matching tasks in your list:
+1. [T][ ] homework
+2. [D][ ] homework (due at Dec 12 2012 0000)
+```
+
+## Feature: storing previous added tasks
+
+Previous added tasks will be store in a text file, qlin.txt. Upon execution, the store data will be loaded back into 
+the list , reconstructing the user's list back to the state before the last termination of the chatbot. If no such file 
+exists, the chatbot will create automatically upon execution.
+
+However, the tasks in the list will only be stored if the user terminates the chatbot through "bye" command. 
+Terminating the chatbot manually will result in loss of data, any creation and operation of the tasks will not be 
+stored. 
+
+### Commands
+
+1. bye (terminates the program and close the GUI window immediately)
+2. list (as above)
+3. todo (as above)
+4. deadline (as above)
+5. event (as above)
+6. mark (as above)
+7. unmark (as above)
+8. delete (as above)
+9. find (as above)
+10. deleteAll (special command, deletes all tasks in the list)
