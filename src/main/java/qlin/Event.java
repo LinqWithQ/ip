@@ -46,7 +46,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        String result = "[E]" + super.toString() + " (from: "
+        String result = "[E]" + super.toString() + " (from "
                 + beginTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
                 + " to " + endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
         if (this.location != null) {
