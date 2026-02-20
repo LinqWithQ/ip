@@ -16,13 +16,13 @@ Date and time must strictly follow the yyyy-MM-dd'T'HH:mm format (e.g., use a T 
 
 1. bye (terminates the program and close the GUI window immediately)
 2. list (shows the list of added tasks)
-3. todo <name> (add a todo task)
-4. deadline <name> <due datetime> (add a deadline task)
-5. event <name> <starting datetime> <ending datetime> <optional: location>(add an event tasks)
-6. mark <index> (marks a task as done)
-7. unmark <index> (unmarks a task)
-8. delete <index> (delete a task)
-9. find <search name> (search the task by name)
+3. todo `name` (add a todo task)
+4. deadline `name` `due datetime` (add a deadline task)
+5. event `name` `starting datetime` `ending datetime` `optional: location` (add an event tasks)
+6. mark `index` (marks a task as done)
+7. unmark `index` (unmarks a task)
+8. delete `index` (delete a task)
+9. find `search name` (search the task by name)
 10. deleteAll (special command, deletes all tasks in the list)
 
 ## Feature: listing
