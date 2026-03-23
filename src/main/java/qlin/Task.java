@@ -13,7 +13,7 @@ public class Task {
      * @param name The task's name.
      */
     public Task(String name) {
-        assert !name.isEmpty() : "name shouldn't be empty";
+        assert !name.isEmpty() : "The name shouldn't be empty";
         this.isDone = false;
         this.taskName = name;
     }

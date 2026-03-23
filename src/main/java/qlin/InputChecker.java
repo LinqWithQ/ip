@@ -67,6 +67,7 @@ public class InputChecker {
      * @throws QlinException The exception that carries the message.
      */
     private void getQlinException(String commandType) throws QlinException {
+        assert !commandType.isEmpty() : "CommmandType should not be empty";
         switch (commandType) {
         case "bye" -> throw new QlinException("Sry, extra parameters/s detected. Do you mean \"bye\"?");
         case "list" -> throw new QlinException("Sry, extra parameters/s detected. Do you mean \"list\"?");
