@@ -2,7 +2,7 @@ package exceptions;
 
 /**
  * The class that represent the root exception for the chatbot.
- * A general exception.
+ * A general exception for the ChatBot.
  */
 public class QlinException extends Exception {
 
@@ -16,6 +16,7 @@ public class QlinException extends Exception {
         super();
         this.message = message;
     }
+
     @Override
     public String getMessage() {
         return this.message;
