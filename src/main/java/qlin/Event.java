@@ -14,7 +14,7 @@ public class Event extends Task {
 
     /**
      * Return an Event object.
-     * @param name Event's name.
+     * @param name The Event object's name.
      * @param beginTime The event starting time in the format of "yyyy-MM-dd'T'HH:mm".
      * @param endTime The event ending time in the format of "yyyy-MM-dd'T'HH:mm".
      */
